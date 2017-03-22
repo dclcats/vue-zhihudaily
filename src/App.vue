@@ -1,11 +1,14 @@
 <template>
-    <div id="app">
-        <my-header></my-header>
+    <div id="app" class="app">
+        <transition name="nav-slide">
+            <my-nav v-if="nav" class="nav-in"></my-nav>
+        </transition>
+        
+        <my-header :navslide="nav"></my-header>
         <!-- <img src="./assets/logo.png"> -->
         <transition>
             <router-view></router-view>
         </transition>
-        <my-nav v-if="nav"></my-nav>
     </div>
 </template>
 
@@ -28,8 +31,13 @@ export default {
 }
 </script>
 
-<style>
-#app {
+<style lang="scss">
+@mixin min-screen($res){
+    @media only screen and ( min-width: $res ) {
+        @content;
+    }
+}
+.app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -38,4 +46,57 @@ export default {
     /* margin-top: 60px; */
     min-height: 100%;
 }
+
+.nav-slide-enter-active {
+    animation: slide-enter 1s;
+}
+
+.nav-slide-leave-active {
+    animation: slide-leave 1s;
+}
+
+@keyframes slide-enter {
+    0% {
+        width: 0;
+        transform: translateX(0);
+    }
+    100% {
+        width: 100%;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes slide-leave {
+    0% {
+        width: 100%;
+        transform: translateX(100%);
+    }
+    100% {
+        width: 0;
+        transform: translateX(0);
+    }
+}
+
+@include min-screen(640px) {
+    html, body {
+        position: relative;
+    }
+    #app{
+        position: absolute;
+        width: 640px;
+        left: 50%;
+        transform: translate(-50%,0);
+    }
+}
+/* @media screen and (min-width: 640px){
+    html, body {
+        position: relative;
+    }
+    #app{
+        position: absolute
+        width: 640px;
+        left: 50%;
+        transform: translate(-50%,0);
+    }
+} */
 </style>

@@ -17,7 +17,7 @@
 	}
 </script>
 
-<style>
+<style scoped>
 	.header {
 		height: 60px;
 		text-align: center;
