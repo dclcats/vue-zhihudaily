@@ -1,10 +1,11 @@
 <template>
-    <div id="app" class="app">
+    <div id="app" class="app" @click="navToggle">
         <transition name="nav-slide">
+            <!-- <my-nav class="nav-in"></my-nav> -->
             <my-nav v-if="nav" class="nav-in"></my-nav>
         </transition>
         
-        <my-header :navslide="nav"></my-header>
+        <my-header></my-header>
         <!-- <img src="./assets/logo.png"> -->
         <transition>
             <router-view></router-view>
@@ -16,17 +17,28 @@
 
 import myHeader from "./components/Header"
 import myNav from "./components/Nav"
+import { mapState } from "vuex"
 
 export default {
     name: 'app',
     data() {
         return {
-            nav: false
+            // nav: false
         }
+    },
+    computed: {
+        ...mapState({
+            nav: state => state.nav,
+        })
     },
     components: {
         myHeader,
         myNav
+    },
+    methods: {
+        navToggle() {
+            this.$store.commit('toggle', false)
+        }
     }
 }
 </script>
@@ -45,6 +57,7 @@ export default {
     color: #2c3e50;
     /* margin-top: 60px; */
     min-height: 100%;
+    overflow: hidden;
 }
 
 .nav-slide-enter-active {
@@ -57,23 +70,23 @@ export default {
 
 @keyframes slide-enter {
     0% {
-        width: 0;
-        transform: translateX(0);
+        left: -420px;
+        // width: 0px;
     }
     100% {
-        width: 100%;
-        transform: translateX(100%);
+        left: 0px;
+        // width: 420px;
     }
 }
 
 @keyframes slide-leave {
     0% {
-        width: 100%;
-        transform: translateX(100%);
+        left: 0px;
+        // width: 420px;
     }
     100% {
-        width: 0;
-        transform: translateX(0);
+        left: -420px;
+        // width: 0px;
     }
 }
 

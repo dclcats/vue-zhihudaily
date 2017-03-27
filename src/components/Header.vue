@@ -1,6 +1,6 @@
 <template>
 	<div class="header">
-		<div class="left-menu">
+		<div @click.stop="toggle" class="left-menu">
 			<span></span>
 		</div>
 		<div class="title">{{ title }}</div>
@@ -12,6 +12,11 @@
 		data() {
 			return {
 				title: "今日热闻"
+			}
+		},
+		methods: {
+			toggle() {
+				this.$store.commit('toggle', true)
 			}
 		}
 	}
@@ -29,6 +34,8 @@
 		position: absolute;
 		width: 60px;
 		height: 60px;
+		-webkit-appearance: none;
+		-webkit-tap-highlight-color:rgba(0,0,0,0);
 	}
 	.left-menu span{
 		display: block;
