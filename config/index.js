@@ -30,6 +30,7 @@ module.exports = {
     proxyTable: {
         '/api': {
             target: 'http://news-at.zhihu.com/api/',
+            // target: 'https://zhihu-agent.herokuapp.com/get?api=',
             changeOrigin: true,
             pathRewrite: {
                 '^/api': ''

@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import store from './store'
 import router from './router'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+
+// mount with global
+Vue.use(VueAwesomeSwiper)
 
 Vue.config.productionTip = false
 

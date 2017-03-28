@@ -28,7 +28,7 @@
 		text-align: center;
 		/* line-height: 60px; */
 		font: normal 32px/60px Serif;
-		background-color: rgba(39, 131, 241, 0.7);
+		background-color: rgba(0, 0, 0, 0.5);
 	}
 	.left-menu {
 		position: absolute;
@@ -64,5 +64,8 @@
 		height: 4px;
 		width: 44px;
 		background-color: #fff;
+	}
+	.title {
+		color: #fff;
 	}
 </style>

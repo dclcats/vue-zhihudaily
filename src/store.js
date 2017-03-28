@@ -6,6 +6,8 @@ Vue.use( Vuex )
 export default new Vuex.Store( {
 	state: {
 		nav: false,
+		cid: 0,
+		lid: 0
 	},
 	mutations: {
 		toggle(state, ctoggle) {
@@ -14,6 +16,9 @@ export default new Vuex.Store( {
 			} else {
 				state.nav = false
 			}
+		},
+		setLid(state, lid) {
+			state.lid = lid
 		}
 	}
 } )

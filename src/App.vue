@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="app" @click="navToggle">
+    <div id="app" class="app">
         <transition name="nav-slide">
             <!-- <my-nav class="nav-in"></my-nav> -->
             <my-nav v-if="nav" class="nav-in"></my-nav>
@@ -36,9 +36,6 @@ export default {
         myNav
     },
     methods: {
-        navToggle() {
-            this.$store.commit('toggle', false)
-        }
     }
 }
 </script>
@@ -61,11 +58,11 @@ export default {
 }
 
 .nav-slide-enter-active {
-    animation: slide-enter 1s;
+    animation: slide-enter .8s ease-in-out;
 }
 
 .nav-slide-leave-active {
-    animation: slide-leave 1s;
+    animation: slide-leave .8s ease-in-out;
 }
 
 @keyframes slide-enter {
