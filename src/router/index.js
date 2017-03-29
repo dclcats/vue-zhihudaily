@@ -7,7 +7,7 @@ import List from '@/components/List'
 Vue.use(Router)
 
 export default new Router({
-	mode: 'history',
+	// mode: 'history',
 	routes: [
 		{
 			path: '/',
@@ -19,7 +19,7 @@ export default new Router({
 		  component: Hello
 		},
 		{
-		  path: '/Content',
+		  path: '/Content/:id',
 		  name: 'Content',
 		  component: Content
 		},

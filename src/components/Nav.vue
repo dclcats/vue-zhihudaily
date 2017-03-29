@@ -22,8 +22,9 @@
 				</tr>
 			</table>
 			<ul class="nav-list">
-				<li v-for="sub in subList" :title="sub.description" :data-id="sub.id" @click=""> {{ sub.name }} </li>
-				<li v-for="list in othersList" :title="list.description" :data-id="list.id" @click="choiceId"> {{ list.name }} </li>
+				<li title="首页" data-id="0" @click="tolist(0)">首页</li>
+				<li v-for="sub in subList" :title="sub.description" :data-id="sub.id" @click="tolist(sub.id)"> {{ sub.name }} </li>
+				<li v-for="list in othersList" :title="list.description" :data-id="list.id" @click="tolist(list.id)"> {{ list.name }} </li>
 			</ul>
 		</div>
 		<!-- <div class="nav-mark"></div> -->
@@ -70,27 +71,41 @@
 	        navToggle() {
 	            this.$store.commit('toggle', false)
 	        },
-	        choiceId(e) {
+	        choiceId(id) {
 	        	if(!!document.querySelector('.nav-choice')) {
 	        		document.querySelector('.nav-choice').classList.remove('nav-choice')
 	        	}
 	        	
-	        	e.target.classList.add('nav-choice')
+	        	document.querySelector('.nav-list [data-id="' + id + '"]').classList.add('nav-choice')
+	        	// e.target.classList.add('nav-choice')
 
-	        	this.$store.commit('setLid', e.target.dataset['id'])
+	        	this.$store.commit('setLid', id)
+	        	// this.$store.commit('setLid', e.target.dataset['id'])
+	        },
+	        tolist(id) {
+	        	this.choiceId(id)
+	        	if(id === 0) {
+	        		id = "0"
+	        		this.$router.push({
+		        		path: "List"
+		        	})
+	        	} else {
+	        		this.$router.push({
+		        		path: "List",
+		        		query: {
+		        			id: id
+		        		}
+		        	})
+	        	}
 	        }
 		}
 	}
 </script>
 
-<style lang="scss" scoped>
-	
-	.nav-list {
+<style lang="scss">
+	ul {
 		list-style-type: none;
 	}
-</style>
-
-<style lang="scss">
 	.nav {
 		position: absolute;
 		width: 100%;

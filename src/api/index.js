@@ -16,6 +16,7 @@ const apiList = {
 export default {
 	//获取信息函数第一参数为apiList 的属性， 第二参数为需要id等属性的动态地址路径。该函数为以下函数的汇总
 	getMessage(local='news', id='') {
+		// console.log(API_ROOT.concat(apiList[local], id))
 		return axios.get( API_ROOT.concat(apiList[local], id) )
 	},
 
