@@ -8,7 +8,10 @@
         <my-header></my-header>
         <!-- <img src="./assets/logo.png"> -->
         <transition>
-            <router-view></router-view>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
+            
         </transition>
     </div>
 </template>
@@ -58,11 +61,11 @@ export default {
 }
 
 .nav-slide-enter-active {
-    animation: slide-enter .8s ease-in-out;
+    animation: slide-enter .5s ease-in-out;
 }
 
 .nav-slide-leave-active {
-    animation: slide-leave .8s ease-in-out;
+    animation: slide-leave .5s ease-in-out;
 }
 
 @keyframes slide-enter {

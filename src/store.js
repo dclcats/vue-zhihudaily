@@ -7,7 +7,8 @@ export default new Vuex.Store( {
 	state: {
 		nav: false,
 		cid: 0,
-		lid: 0
+		lid: 0,
+		titleName: ''
 	},
 	mutations: {
 		toggle(state, ctoggle) {
@@ -19,6 +20,11 @@ export default new Vuex.Store( {
 		},
 		setLid(state, lid) {
 			state.lid = lid
+		},
+		setTitleName(state, name) {
+			if(!!name) {
+				state.titleName = name
+			}
 		}
 	}
 } )

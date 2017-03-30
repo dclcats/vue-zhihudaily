@@ -3,15 +3,16 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Content from '@/components/Content'
 import List from '@/components/List'
+// import ListId from '@/components/List'
 
 Vue.use(Router)
 
 export default new Router({
-	// mode: 'history',
+	mode: 'history',
 	routes: [
 		{
 			path: '/',
-			redirect: '/Hello'
+			redirect: '/List'
 		},
 		{
 		  path: '/Hello',
@@ -22,6 +23,11 @@ export default new Router({
 		  path: '/Content/:id',
 		  name: 'Content',
 		  component: Content
+		},
+		{
+		  path: '/List/:id',
+		  name: 'ListId',
+		  component: List
 		},
 		{
 		  path: '/List',

@@ -8,11 +8,18 @@
 </template>
 
 <script>
+	import { mapState } from "vuex"
+
 	export default {
 		data() {
 			return {
-				title: "今日热闻"
+				// title: "今日热闻"
 			}
+		},
+		computed: {
+			...mapState({
+				title: state => state.titleName,
+			})
 		},
 		methods: {
 			toggle() {

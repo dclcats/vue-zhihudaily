@@ -22,9 +22,9 @@
 				</tr>
 			</table>
 			<ul class="nav-list">
-				<li title="首页" data-id="0" @click="tolist(0)">首页</li>
-				<li v-for="sub in subList" :title="sub.description" :data-id="sub.id" @click="tolist(sub.id)"> {{ sub.name }} </li>
-				<li v-for="list in othersList" :title="list.description" :data-id="list.id" @click="tolist(list.id)"> {{ list.name }} </li>
+				<li title="首页" data-id="0" @click="tolist(0, '首页')">首页</li>
+				<li v-for="sub in subList" :title="sub.description" :data-id="sub.id" @click="tolist(sub.id, sub.name)"> {{ sub.name }} </li>
+				<li v-for="list in othersList" :title="list.description" :data-id="list.id" @click="tolist(list.id, list.name)"> {{ list.name }} </li>
 			</ul>
 		</div>
 		<!-- <div class="nav-mark"></div> -->
@@ -38,7 +38,7 @@
 	export default {
 		data() {
 			return {
-				username: "地理热吧",
+				username: "知乎日报",
 				subList: [],
 				othersList: [],
 				jumpId: ''
@@ -49,17 +49,22 @@
 	  //           lid: state => state.lid,
 	  //       })
 		},
-		mounted() {
+		// mounted() {
+		created() {
 			var that = this;
 			api.getMessage('newsThemes').then(function(data) {
 				// console.log(data)
 				that.subList = data.data.subscribed;
 				that.othersList = data.data.others;
-				// console.log(lid)
+				var lid = that.$route.params.id;
+				if(!lid) {
+					lid = 0;
+				}
+				console.log(lid)
 				setTimeout(function () {
-					if(!!document.querySelector('.nav-list li[data-id="' + that.$store.state.lid + '"]')) {
-						// console.log(that.$store.state.lid)
-						document.querySelector('.nav-list li[data-id="' + that.$store.state.lid + '"]').classList.add('nav-choice')
+					if(!!document.querySelector('.nav-list li[data-id="' + lid + '"]')) {
+						// console.log(lid)
+						document.querySelector('.nav-list li[data-id="' + lid + '"]').classList.add('nav-choice')
 					}
 				}, 0)
 				
@@ -71,7 +76,7 @@
 	        navToggle() {
 	            this.$store.commit('toggle', false)
 	        },
-	        choiceId(id) {
+	        choiceId(id, name) {
 	        	if(!!document.querySelector('.nav-choice')) {
 	        		document.querySelector('.nav-choice').classList.remove('nav-choice')
 	        	}
@@ -80,23 +85,24 @@
 	        	// e.target.classList.add('nav-choice')
 
 	        	this.$store.commit('setLid', id)
+
 	        	// this.$store.commit('setLid', e.target.dataset['id'])
 	        },
-	        tolist(id) {
-	        	this.choiceId(id)
-	        	if(id === 0) {
-	        		id = "0"
+	        tolist(id, cname) {
+	        	// console.log('你个逗比：' + id)
+	        	this.choiceId(id, cname)
+	        	// if(id === 0) {
+	        	// 	this.$router.push({
+		        // 		name: "List"
+		        // 	})
+	        	// } else {
 	        		this.$router.push({
-		        		path: "List"
-		        	})
-	        	} else {
-	        		this.$router.push({
-		        		path: "List",
-		        		query: {
+		        		name: "ListId",
+		        		params: {
 		        			id: id
 		        		}
 		        	})
-	        	}
+	        	// }
 	        }
 		}
 	}
