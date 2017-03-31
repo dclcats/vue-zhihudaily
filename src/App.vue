@@ -2,10 +2,10 @@
     <div id="app" class="app">
         <transition name="nav-slide">
             <!-- <my-nav class="nav-in"></my-nav> -->
-            <my-nav v-if="nav" class="nav-in"></my-nav>
+            <my-nav class="nav-in"></my-nav>
         </transition>
         
-        <my-header></my-header>
+        <my-header v-if="head"></my-header>
         <!-- <img src="./assets/logo.png"> -->
         <transition>
             <keep-alive>
@@ -13,6 +13,9 @@
             </keep-alive>
             
         </transition>
+        <div v-if="!head" class="footer">
+            <p @click="backroute"><=</p>
+        </div>
     </div>
 </template>
 
@@ -26,19 +29,40 @@ export default {
     name: 'app',
     data() {
         return {
-            // nav: false
+            // nav: false,
+            head: true
         }
     },
     computed: {
         ...mapState({
             nav: state => state.nav,
+            head: state => state.head
         })
+    },
+    created() {
+        this.toggleHead()
+    },
+    watch: {
+        "$route": "toggleHead"
     },
     components: {
         myHeader,
         myNav
     },
     methods: {
+        toggleHead() {
+            var path = this.$route.path
+            // console.log(":",path)
+            if(path.search(/\/list/i) === -1) {
+                this.head = false
+            } else {
+                this.head = true
+            }
+            // console.log(path)
+        },
+        backroute() {
+            this.$router.go(-1)
+        }
     }
 }
 </script>
@@ -56,7 +80,7 @@ export default {
     text-align: center;
     color: #2c3e50;
     /* margin-top: 60px; */
-    min-height: 100%;
+    height: 100%;
     overflow: hidden;
 }
 
@@ -99,6 +123,20 @@ export default {
         width: 640px;
         left: 50%;
         transform: translate(-50%,0);
+    }
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    height: 44px;
+    background-color: #ddd;
+    font-size: 0;
+    width: 100%;
+    margin: 0;
+    p {
+        font-size: 28px;
+        text-align: left;
     }
 }
 /* @media screen and (min-width: 640px){

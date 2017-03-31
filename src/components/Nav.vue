@@ -1,5 +1,5 @@
 <template>
-	<div class="nav"  @click="navToggle">
+	<div class="nav" :class="{slide: nav}"  @click="navToggle">
 		<div class="nav-content">
 			<div class="nav-head">
 				<div class="avatar"></div>
@@ -45,12 +45,13 @@
 			}
 		},
 		computed: {
-			// ...mapState({
-	  //           lid: state => state.lid,
-	  //       })
+			...mapState({
+	            nav: state => state.nav,
+	        })
 		},
-		// mounted() {
-		created() {
+		// computed() {
+		mounted() {
+		// created() {
 			var that = this;
 			api.getMessage('newsThemes').then(function(data) {
 				// console.log(data)
@@ -60,7 +61,6 @@
 				if(!lid) {
 					lid = 0;
 				}
-				console.log(lid)
 				setTimeout(function () {
 					if(!!document.querySelector('.nav-list li[data-id="' + lid + '"]')) {
 						// console.log(lid)
@@ -108,9 +108,26 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	ul {
 		list-style-type: none;
+	}
+	div.slide {
+		left: 0;
+		// animation: slided .5s ease-in-out forwards;
+	}
+	@keyframes slided {
+		0% {
+			left: -640px;
+			// display: none;
+		}
+		2% {
+			left: -420px;
+		}
+		100% {
+			left: 0px;
+			// display: block;
+		}
 	}
 	.nav {
 		position: absolute;
@@ -120,6 +137,8 @@
 		z-index: 99;
 		font-size: 24px;
 		overflow: hidden;
+		left: -640px;
+		transition: left 1s;
 		// background-color: rgba(0, 0, 0, .5);
 
 		.nav-content {

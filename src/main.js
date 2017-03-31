@@ -19,3 +19,14 @@ new Vue({
 	template: '<App/>',
 	components: { App }
 })
+
+// router.beforeEach((to, from, next) => {
+// 	if( to.path.search(/\/list/i) !== -1 ) {
+// 		store.commit('toggleHead', true)
+// 		console.log(to.path, 'true')
+// 	} else {
+// 		store.commit('toggleHead', false)
+// 		console.log(to.path, 'false')
+// 	}
+// 	next()
+// })

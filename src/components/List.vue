@@ -5,8 +5,11 @@
 			<div class="top-slide" v-if="!!data.top_stories">
 				<swiper :options="swiperOption" class="sdj">
 					<swiper-slide class="swiper-in" v-for="slide in data.top_stories" :key="slide" :data-id="slide.id">
-						<img :src="slide.image" :alt="slide.title">
-						<div class="slide-content">{{slide.title}}</div>
+						<div @click="toContent(slide.id)">
+							<img :src="slide.image" :alt="slide.title">
+							<div class="slide-content">{{slide.title}}</div>
+						</div>
+						
 					</swiper-slide>
 					<div class="swiper-pagination" slot="pagination"></div>
 				</swiper>
@@ -15,7 +18,7 @@
 				<p v-if="!!data.date && !data.top_stories">{{data.date}}</p>
 				<img v-if="!data.date && !!data.image" :src='"http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=" + data.image'  :alt="data.name">
 				<ul>
-					<li v-for="list in data.stories">
+					<li v-for="list in data.stories" @click="toContent(list.id)" :data-id="list.id">
 						<p>{{list.title}}</p>
 						<img v-if="!!list.images" :src="list.images" :alt="list.title">
 					</li>
@@ -94,6 +97,14 @@
 		// 	// next();
 		// },
 		methods: {
+			toContent(id) {
+				this.$router.push({
+	        		name: "Content",
+	        		params: {
+	        			id: id
+	        		}
+	        	})
+			},
 			getlist() {
 				var that = this;
 				var jumpId = this.$route.params.id
