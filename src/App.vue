@@ -13,15 +13,17 @@
             </keep-alive>
             
         </transition>
-        <div v-if="!head" class="footer">
+        <my-footer v-if="!head"></my-footer>
+        <!-- <div v-if="!head" class="footer">
             <p @click="backroute"><=</p>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
 
 import myHeader from "./components/Header"
+import myFooter from "./components/Footer"
 import myNav from "./components/Nav"
 import { mapState } from "vuex"
 
@@ -47,7 +49,8 @@ export default {
     },
     components: {
         myHeader,
-        myNav
+        myNav,
+        myFooter
     },
     methods: {
         toggleHead() {
@@ -81,7 +84,7 @@ export default {
     color: #2c3e50;
     /* margin-top: 60px; */
     height: 100%;
-    overflow: hidden;
+    // overflow: hidden;
 }
 
 .nav-slide-enter-active {
@@ -116,29 +119,16 @@ export default {
 
 @include min-screen(640px) {
     html, body {
-        position: relative;
+        // position: relative;
     }
     #app{
-        position: absolute;
+        position: relative;
         width: 640px;
         left: 50%;
         transform: translate(-50%,0);
     }
 }
 
-.footer {
-    position: fixed;
-    bottom: 0;
-    height: 44px;
-    background-color: #ddd;
-    font-size: 0;
-    width: 100%;
-    margin: 0;
-    p {
-        font-size: 28px;
-        text-align: left;
-    }
-}
 /* @media screen and (min-width: 640px){
     html, body {
         position: relative;

@@ -2,12 +2,14 @@
 	<div class="list">
 		<div class="loading" v-if="loading">Loading...</div>
 		<div v-if="getdone">
-			<div class="top-slide" v-if="!!data.top_stories">
+			<div class="top-slide top" v-if="!!data.top_stories">
 				<swiper :options="swiperOption" class="sdj">
-					<swiper-slide class="swiper-in" v-for="slide in data.top_stories" :key="slide" :data-id="slide.id">
+					<swiper-slide class="top-img" v-for="slide in data.top_stories" :key="slide" :data-id="slide.id">
 						<div @click="toContent(slide.id)">
 							<img :src="slide.image" :alt="slide.title">
-							<div class="slide-content">{{slide.title}}</div>
+							<div class="slide-content">
+								<p>{{slide.title}}</p>
+							</div>
 						</div>
 						
 					</swiper-slide>
@@ -126,7 +128,7 @@
 						var top_stories = data.top_stories;
 						var tlength = top_stories.length;
 						for (var i = tlength - 1; i >= 0; i--) {
-							top_stories[i].image = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=' + top_stories[i].image
+							// top_stories[i].image = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=' + top_stories[i].image
 						}
 						data.top_stories = top_stories
 					}
@@ -135,7 +137,7 @@
 						var tlength = stories.length;
 						for (var i = tlength - 1; i >= 0; i--) {
 							if(!!stories[i].images) {
-								stories[i].images = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=' + stories[i].images
+								// stories[i].images = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=' + stories[i].images
 							}
 						}
 						data.stories = stories
@@ -197,23 +199,6 @@
 			// width: 100%;
 			// height: 440px;
 
-			.swiper-in {
-				width: 100%;
-				height: 350px;
-				color: #000;
-				background-color: #ddd;
-				line-height: 440px;
-				// font-size: 34px;
-				overflow: hidden;
-
-				img {
-					width: 100%;
-				}
-			}
-			.slide-content {
-				font-size: 24px;
-				vertical-align: bottom;
-			}
 		}
 
 		.list-message {
@@ -267,5 +252,43 @@
 
 		}
 	}
+	.top {
+		position: relative;
+		height: 350px;
+		.top-img {
+			width: 100%;
+			height: 350px;
+			color: #000;
+			background-color: #ddd;
+			line-height: 440px;
+			overflow: hidden;
+			
+			img {
+				width: 100%;
+				margin-top: -145px;
+			}
+		}
+		.slide-content {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			background-color: rgba(0, 0, 0, .3);
 
+			p {
+				position: absolute;
+				font-size: 29px;
+				// vertical-align: bottom;
+				color: #fff;
+				bottom: 23px;
+				text-align: left;
+				line-height: 44px;
+				max-width: 600px;
+				left: 50%;
+				margin-left: -300px;
+			}
+		}
+
+	}
+		
 </style>

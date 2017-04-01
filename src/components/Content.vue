@@ -1,13 +1,18 @@
 <template>
-	<div class="content">
+	<div class="ctn">
 		<div class="loading" v-if="loading">Loading...</div>
-		<div>
-			<div>
-				<img v-if="!!data.image" :src="data.image" :alt="data.image_source">
-				<p>{{data.title}}</p>
+		<div v-if="getdone">
+			<div class="top">
+				<div class="top-img">
+					<img v-if="!!data.image" :src="data.image" :alt="data.image_source">
+					<div class="slide-content">
+						<p>{{data.title}}</p>
+					</div>
+				</div>
 			</div>
-			<div v-html="data.body"></div>
+			<div class="article" v-html="data.body"></div>
 		</div>
+			
 	</div>
 </template>
 
@@ -50,17 +55,58 @@
 </script>
 
 <style lang="scss">
-	.content {
+	.ctn {
 		position: absolute;
 		width: 100%;
-		height: 100%;
+		height: 10000%;
 		overflow: auto;
-
+		
 		.loading {
 			position: absolute;
 			width: 100%;
 			font-size: 34px;
+			line-height: 55px;
 			padding-top: 400px;
+		}
+
+	}
+
+	.article {
+		position: relative;
+		padding: 4px 26px;
+		margin-bottom: 67px;
+		text-align: left;
+		font-size: 24px;
+		line-height: 40px;
+		
+		.meta {
+			height: 38px;
+			line-height: 38px;
+			img {
+				vertical-align: middle;
+			}
+			.author {
+				font-weight: bold;
+				margin-left: 8px;
+			}
+			
+		}
+		.content {
+			a, a:hover, a:visited, a:link, a:active {
+				text-decoration: none;
+				color: #1919f3;
+				-webkit-tap-highlight-color:rgba(0,0,0,0);
+			}
+
+			p {
+				margin: 20px 0;
+				// font-size: 16px;
+
+			}
+			iframe {
+				width: 560px;
+    			height: 435.75px;
+			}
 		}
 	}
 </style>
