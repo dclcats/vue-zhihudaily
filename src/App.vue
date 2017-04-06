@@ -64,7 +64,8 @@ export default {
             // console.log(path)
         },
         backroute() {
-            this.$router.go(-1)
+            // this.$router.go(-1)
+            window.history.back()
         }
     }
 }
@@ -77,14 +78,16 @@ export default {
     }
 }
 .app {
+    position: absolute;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    /* margin-top: 60px; */
     height: 100%;
-    // overflow: hidden;
+    width: 100%;
+    overflow: hidden;
+    // -webkit-overflow-scrolling: touch;
 }
 
 .nav-slide-enter-active {
@@ -122,7 +125,6 @@ export default {
         // position: relative;
     }
     #app{
-        position: relative;
         width: 640px;
         left: 50%;
         transform: translate(-50%,0);

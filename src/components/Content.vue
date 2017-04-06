@@ -2,9 +2,9 @@
 	<div class="ctn">
 		<div class="loading" v-if="loading">Loading...</div>
 		<div v-if="getdone">
-			<div class="top">
+			<div v-if="!!data.image" class="top">
 				<div class="top-img">
-					<img v-if="!!data.image" :src="data.image" :alt="data.image_source">
+					<img :src="data.image" :alt="data.image_source">
 					<div class="slide-content">
 						<p>{{data.title}}</p>
 					</div>
@@ -12,7 +12,6 @@
 			</div>
 			<div class="article" v-html="data.body"></div>
 		</div>
-			
 	</div>
 </template>
 
@@ -57,12 +56,18 @@
 <style lang="scss">
 	.ctn {
 		position: absolute;
-		width: 100%;
-		height: 10000%;
-		overflow: auto;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 60px;
+		overflow-y: scroll;
+		overflow-x: hidden;
+		-webkit-overflow-scrolling: touch;
 		
 		.loading {
 			position: absolute;
+			// left: 0;
+			// right: 0;
 			width: 100%;
 			font-size: 34px;
 			line-height: 55px;
@@ -71,19 +76,41 @@
 
 	}
 
+
+
 	.article {
 		position: relative;
 		padding: 4px 26px;
 		margin-bottom: 67px;
 		text-align: left;
-		font-size: 24px;
+		font-size: 28px;
 		line-height: 40px;
+		word-break:break-all;
+
+		h1 {
+			font-size: 40px;
+			line-height: 50px;
+		}
+
+		h2 {
+			font-size: 33px;
+			line-height: 45px;
+		}
 		
 		.meta {
+			display: inline-block;
 			height: 38px;
 			line-height: 38px;
+			// margin-bottom: 26px;
+			width: 588px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			// float: left;
+
 			img {
 				vertical-align: middle;
+				float: left;
 			}
 			.author {
 				font-weight: bold;
@@ -92,6 +119,9 @@
 			
 		}
 		.content {
+			clear: both;
+			// margin-top: 23px;
+
 			a, a:hover, a:visited, a:link, a:active {
 				text-decoration: none;
 				color: #1919f3;
@@ -106,6 +136,22 @@
 			iframe {
 				width: 560px;
     			height: 435.75px;
+			}
+			img {
+				width: 100%;
+			}
+		}
+		.view-more {
+			background-color: #ddd;
+			text-align: center;
+			height: 52px;
+			line-height: 52px;
+			margin-top: 19px;
+
+			a {
+				font-size: 27px;
+				text-decoration: none;
+				color: #929292;
 			}
 		}
 	}

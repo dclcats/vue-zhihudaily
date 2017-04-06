@@ -1,33 +1,39 @@
 <template>
 	<div class="list">
 		<div class="loading" v-if="loading">Loading...</div>
-		<div v-if="getdone">
-			<div class="top-slide top" v-if="!!data.top_stories">
-				<swiper :options="swiperOption" class="sdj">
-					<swiper-slide class="top-img" v-for="slide in data.top_stories" :key="slide" :data-id="slide.id">
-						<div @click="toContent(slide.id)">
-							<img :src="slide.image" :alt="slide.title">
-							<div class="slide-content">
-								<p>{{slide.title}}</p>
+		<div class="list-con">
+			<div v-if="getdone" v-for="data in datas">
+				<div class="top-slide top" v-if="!!data.top_stories">
+					<swiper :options="swiperOption" class="sdj">
+						<swiper-slide class="top-img" v-for="slide in data.top_stories" :key="slide" :data-id="slide.id">
+							<div @click="toContent(slide.id)">
+								<img :src="slide.image" :alt="slide.title">
+								<div class="slide-content">
+									<p>{{slide.title}}</p>
+								</div>
 							</div>
-						</div>
-						
-					</swiper-slide>
-					<div class="swiper-pagination" slot="pagination"></div>
-				</swiper>
+							
+						</swiper-slide>
+						<div class="swiper-pagination" slot="pagination"></div>
+					</swiper>
+				</div>
+				<div class="list-message" v-if="!!data.stories">
+					<p v-if="!!data.date && !data.top_stories">{{data.date}}</p>
+					<img v-if="!data.date && !!data.image" :src='"http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=" + data.image'  :alt="data.name">
+					<ul>
+						<li v-for="list in data.stories" @click="toContent(list.id)" :data-id="list.id">
+							<p>{{list.title}}</p>
+							<img v-if="!!list.images" :src="list.images" :alt="list.title">
+						</li>
+					</ul>
+					
+				</div>
 			</div>
-			<div class="list-message" v-if="!!data.stories">
-				<p v-if="!!data.date && !data.top_stories">{{data.date}}</p>
-				<img v-if="!data.date && !!data.image" :src='"http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=" + data.image'  :alt="data.name">
-				<ul>
-					<li v-for="list in data.stories" @click="toContent(list.id)" :data-id="list.id">
-						<p>{{list.title}}</p>
-						<img v-if="!!list.images" :src="list.images" :alt="list.title">
-					</li>
-				</ul>
 				
-			</div>
+
 		</div>
+
+		<div v-if="getdone" class="more-load" :class="{dbload: homepage}">loading...</div>
 		
 	</div>
 </template>
@@ -40,7 +46,11 @@
 		data() {
 			return {
 				topStories: [1, 2, 3, 4],
-				data: {},
+				datas: [],
+	        	date: 0,
+	        	routetimes: false,
+	        	homepage: false,
+	        	refresh: true,
 				loading: false,
 				getdone: false,
 				swiperOption: {
@@ -55,49 +65,26 @@
 			}
 		},
 		created() {
-			// console.log('sad');
-			// console.log(this.$route.path)
-			// this.data = {};
+			// if(this.$route.path)
+			// if(!this.$route.params.id) {}
 			this.getlist();
+		},
+		mounted() {
+			var rid = this.$route.path.split('\/')[2]
+			this.routetimes = true
+			if(!rid || rid === '0') {
+				this.homepage = true
+				this.$store.commit('setTitleName', '今日热闻')
+				document.querySelector('.list').addEventListener('scroll',this.lazyLoad);
+			} else {
+				this.homepage = false
+
+			}
+			
 		},
 		watch: {
 			"$route": "getlist"
 		},
-		// beforeRouteUpdate(to, from, next) {
-		// 	console.log(to.path)
-		// 	console.log(": " + from.path)
-		// 	if(to.path.search(/\/con/)) {
-		// 		// this.data = {};
-		// 		this.getlist();
-		// 	}
-		// 	next();
-		// },
-		// beforeRouteLeave(to, from, next) {
-		// 	console.log("leave", from.path)
-
-		// 	if(from.path.search(/\/con/)) {
-		// 		this.data = {};
-		// 	}
-		// 	// next();
-		// },
-		// beforeEach(to, from, next) {
-		// 	console.log(to.path)
-		// 	console.log(": " + from.path)
-		// 	if(to.path.search(/\/con/)) {
-		// 		this.data = {};
-		// 		this.getlist();
-		// 	}
-		// 	next();
-		// },
-		// afterEach(to, from, next) {
-		// 	console.log("leave", to.path)
-
-		// 	if(from.path.search(/\/con/)) {
-		// 		// this.data = {};
-		// 		this.getlist();
-		// 	}
-		// 	// next();
-		// },
 		methods: {
 			toContent(id) {
 				this.$router.push({
@@ -108,6 +95,19 @@
 	        	})
 			},
 			getlist() {
+				var rid = this.$route.path.split('\/')[2]
+				if(this.routetimes) {
+					if(!rid || rid === '0') {
+						this.homepage = true
+						document.querySelector('.list').addEventListener('scroll',this.lazyLoad);
+					} else if(this.homepage) {
+						this.homepage = false
+						document.querySelector('.list').removeEventListener('scroll',this.lazyLoad);
+					}
+				}
+
+				this.datas = [];
+				this.date = 0;
 				var that = this;
 				var jumpId = this.$route.params.id
 				var local = "newsThemeDetail"
@@ -142,20 +142,14 @@
 						}
 						data.stories = stories
 					}
-					// console.log(": ", data)
+
 					if(!!data.date) {
 						var date = data.date
 						date = date.substring(0, 4) + "年" + date.substring(4, 6) + "月" + date.substring(6, 8) + "日"
 						data.date = date
 					}
-
-					if(!!data.name) {
-						that.$store.commit('setTitleName', data.name )
-					} else {
-						that.$store.commit('setTitleName', '今日热闻')
-					}
 						
-					that.data = data
+					that.datas.push(data)
 					that.loading = false
 					that.getdone = true
 					
@@ -168,7 +162,38 @@
 					// let swiperSlides = this.swiperSlides
 					// if (swiperSlides.length < 10) swiperSlides.push(swiperSlides.length + 1)
 				}, 3000)
+			},
+			lazyLoad(e) {
+				var that = this,
+					clientH = document.documentElement.clientHeight || document.body.clientHeight,
+					scrollH = document.querySelector('.list').scrollTop,
+					eleTop = document.querySelector('.more-load').offsetTop;
+
+				if(eleTop - 100 <= (clientH + scrollH) && that.refresh) {
+					that.refresh = false;
+					var gd = that.getdate();
+					// document.querySelector('.more-load').textContent = 'loading...'
+					api.getMessage('newsDate', gd).then((data) => {
+						that.datas.push(data.data)
+						// document.querySelector('.more-load').textContent = 'load'
+						that.date += 1
+						that.refresh = true
+					}).catch(err => {
+						console.log(':', err);
+					})
+				}
+			},
+			getdate() {
+				var dt = new Date();
+				dt.setDate(dt.getDate() - this.date);
+				var y = dt.getFullYear();
+				var m = dt.getMonth() + 1;
+				m = m >= 10 ? m : '0' + m;
+				var d = dt.getDate();
+				d = d >= 10 ? d : '0' + d;
+				return '' + y + m + d;
 			}
+
 		}
 	}
 
@@ -185,7 +210,8 @@
 		width: 100%;
 		height: 100%;
 		z-index: -1;
-		overflow: auto;
+		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
 
 		.loading {
 			position: absolute;
@@ -219,10 +245,7 @@
 				li {
 					display: flex;
 					align-items: center;
-					// flex-flow: row;
-					// clear: both;
 					height: 136px;
-					// line-height: 100px;
 					padding: 3px 0;
 					border: {
 						top: 1px solid #ddd;
@@ -251,6 +274,22 @@
 			}
 
 		}
+	}
+	.more-load {
+		display: none;
+		line-height: 70px;
+		font-size: 23px;
+		// padding: 0 14px 0;
+		text-align: center;
+		font-weight: bold;
+		height: 70px;
+		padding: 3px 0;
+		border: {
+			top: 1px solid #ddd;
+		}
+	}
+	.dbload {
+		display: block;
 	}
 	.top {
 		position: relative;

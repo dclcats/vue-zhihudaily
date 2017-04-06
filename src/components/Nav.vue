@@ -5,13 +5,6 @@
 				<div class="avatar"></div>
 				<div class="user-name">{{ username }}</div>
 			</div>
-			<!-- <div class="nav-settings">
-				<div class="colloct">收藏</div>
-				<div class="cut">|</div>
-				<div class="message">消息</div>
-				<div class="cut">|</div>
-				<div class="settings">设置</div>
-			</div> -->
 			<table  class="nav-settings">
 				<tr>
 					<td>收藏</td>
@@ -82,27 +75,22 @@
 	        	}
 	        	
 	        	document.querySelector('.nav-list [data-id="' + id + '"]').classList.add('nav-choice')
-	        	// e.target.classList.add('nav-choice')
 
 	        	this.$store.commit('setLid', id)
-
-	        	// this.$store.commit('setLid', e.target.dataset['id'])
 	        },
 	        tolist(id, cname) {
-	        	// console.log('你个逗比：' + id)
+	        	if(id === 0) {
+	        		this.$store.commit('setTitleName', '今日热闻')
+	        	} else {
+	        		this.$store.commit('setTitleName', cname )
+	        	}
 	        	this.choiceId(id, cname)
-	        	// if(id === 0) {
-	        	// 	this.$router.push({
-		        // 		name: "List"
-		        // 	})
-	        	// } else {
-	        		this.$router.push({
-		        		name: "ListId",
-		        		params: {
-		        			id: id
-		        		}
-		        	})
-	        	// }
+        		this.$router.push({
+	        		name: "ListId",
+	        		params: {
+	        			id: id
+	        		}
+	        	})
 	        }
 		}
 	}

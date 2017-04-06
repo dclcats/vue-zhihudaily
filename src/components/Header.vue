@@ -32,11 +32,9 @@
 <style scoped>
 	.header {
 		position: fixed;
-		/* top: 0; */
 		height: 60px;
 		width: 100%;
 		text-align: center;
-		/* line-height: 60px; */
 		font: normal 32px/60px Serif;
 		background-color: rgba(0, 0, 0, 0.4);
 	}
