@@ -37,6 +37,7 @@
 		text-align: center;
 		font: normal 32px/60px Serif;
 		background-color: rgba(0, 0, 0, 0.4);
+		z-index: 11;
 	}
 	.left-menu {
 		position: absolute;

@@ -2,27 +2,27 @@
 import axios from 'axios'
 import { API_ROOT } from './config.js'
 
-// const apiList = {
-// 	startImage: '4/start-image/',	//开机动画图
-// 	news: '4/news/latest', 			//最新消息列表获取
-// 	newsDate: '4/news/before/',		//按时间获取过往消息列表
-// 	newsDetail: '4/news/',			//文章详情
-// 	newsInfo: '4/story-extra/',		//文章评论等信息
-// 	newsStory: '4/story/',			//文章评论等详情获取
-// 	newsThemes: '4/themes',			//分类列表
-// 	newsThemeDetail: '4/theme/',	//分类详情列表
-// }
-
 const apiList = {
 	startImage: '4/start-image/',	//开机动画图
-	news: '/4/news/latest', 			//最新消息列表获取
-	newsDate: '/4/news/before/',		//按时间获取过往消息列表
-	newsDetail: '/4/news/',			//文章详情
-	newsInfo: '/4/story-extra/',		//文章评论等信息
-	newsStory: '/4/story/',			//文章评论等详情获取
-	newsThemes: '/4/themes',			//分类列表
-	newsThemeDetail: '/4/theme/',	//分类详情列表
+	news: '4/news/latest', 			//最新消息列表获取
+	newsDate: '4/news/before/',		//按时间获取过往消息列表
+	newsDetail: '4/news/',			//文章详情
+	newsInfo: '4/story-extra/',		//文章评论等信息
+	newsStory: '4/story/',			//文章评论等详情获取
+	newsThemes: '4/themes',			//分类列表
+	newsThemeDetail: '4/theme/',	//分类详情列表
 }
+
+// const apiList = {
+// 	startImage: '4/start-image/',	//开机动画图
+// 	news: '/4/news/latest', 			//最新消息列表获取
+// 	newsDate: '/4/news/before/',		//按时间获取过往消息列表
+// 	newsDetail: '/4/news/',			//文章详情
+// 	newsInfo: '/4/story-extra/',		//文章评论等信息
+// 	newsStory: '/4/story/',			//文章评论等详情获取
+// 	newsThemes: '/4/themes',			//分类列表
+// 	newsThemeDetail: '/4/theme/',	//分类详情列表
+// }
 
 export default {
 	//获取信息函数第一参数为apiList 的属性， 第二参数为需要id等属性的动态地址路径。该函数为以下函数的汇总

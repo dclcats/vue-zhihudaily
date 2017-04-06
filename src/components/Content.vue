@@ -66,8 +66,6 @@
 		
 		.loading {
 			position: absolute;
-			// left: 0;
-			// right: 0;
 			width: 100%;
 			font-size: 34px;
 			line-height: 55px;
@@ -149,9 +147,12 @@
 			margin-top: 19px;
 
 			a {
+				display: block;
 				font-size: 27px;
+				width: 100%;
+				height: 100%;
 				text-decoration: none;
-				color: #929292;
+				color: #1919f3;
 			}
 		}
 	}

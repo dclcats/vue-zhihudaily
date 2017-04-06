@@ -42,15 +42,7 @@
 		font: normal 32px/60px Serif;
 		border-top: 1px solid #dcdcdc;
 		background-color: rgba(255, 255, 255, 1);
-	    // position: fixed;
-	    // bottom: -1px;
-	    // left: 0;
-	    // height: 44px;
-	    // background-color: #ddd;
-	    // font-size: 0;
-	    // width: 100%;
-	    // margin: 0;
-	    // z-index: 99;
+		
 	    p {
 	        font-size: 28px;
 	        text-align: left;

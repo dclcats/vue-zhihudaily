@@ -18,9 +18,10 @@
 				<li title="首页" data-id="0" @click="tolist(0, '首页')">首页</li>
 				<li v-for="sub in subList" :title="sub.description" :data-id="sub.id" @click="tolist(sub.id, sub.name)"> {{ sub.name }} </li>
 				<li v-for="list in othersList" :title="list.description" :data-id="list.id" @click="tolist(list.id, list.name)"> {{ list.name }} </li>
+				<li data-id="-1"><a href="https://github.com/dclcats/vue-zhihudaily">GitHub</a></li>
 			</ul>
 		</div>
-		<!-- <div class="nav-mark"></div> -->
+		<!-- <div class="nav-mark" :class="{opmark: nav}"></div> -->
 	</div>
 </template>
 
@@ -118,7 +119,7 @@
 		}
 	}
 	.nav {
-		position: absolute;
+		position: fixed;
 		width: 100%;
 		height: 100%;
 		line-height: 34px;
@@ -126,10 +127,28 @@
 		font-size: 24px;
 		overflow: hidden;
 		left: -640px;
-		transition: left 1s;
+		transition: left .6s;
+		z-index: 99;
 		// background-color: rgba(0, 0, 0, .5);
 
+		.nav-mark {
+			position: absolute;
+			top: 0;
+			left: 0;
+			display: none;
+			opacity: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, .5);
+		}
+
+		.opmark {
+			display: block;
+			opacity: 1;
+		}
+
 		.nav-content {
+			position: absolute;
 			width: 420px;
 			height: 100%;
 			background-color: #ddd;
@@ -182,10 +201,14 @@
 		}
 
 		.nav-list {
+			position: absolute;
 			clear: both;
+			width: 100%;
+			height: 100%;
 			padding: 0;
 			line-height: 70px;
 			text-align: left;
+			overflow-y: scroll;
 
 			li {
 				padding-left: 24px;
