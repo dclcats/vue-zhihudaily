@@ -17,6 +17,8 @@ npm run dev
 本项目的数据来自于 [知乎日报API][1]
 本项目所使用的到的 [API介绍][2]
 
+AS
+
 关于dev server跨域问题通过webpack配置代理解决 在文件config/index.js文件下
 
 
