@@ -19,7 +19,7 @@
 				</div>
 				<div class="list-message" v-if="!!data.stories">
 					<p v-if="!!data.date && !data.top_stories">{{data.date}}</p>
-					<img v-if="!data.date && !!data.image" :src='"http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=" + data.image'  :alt="data.name">
+					<img v-if="!data.date && !!data.image" :src='data.image'  :alt="data.name">
 					<ul>
 						<li v-for="list in data.stories" @click="toContent(list.id)" :data-id="list.id">
 							<p>{{list.title}}</p>
