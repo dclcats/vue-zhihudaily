@@ -38,6 +38,9 @@
 				this.loading = true
 				this.getdone = false
 				var cid = this.$route.params.id
+				if(cid < 100) {
+					return
+				}
 				api.getMessage('newsDetail', cid).then((data) => {
 					that.data = data.data
 					this.loading = false

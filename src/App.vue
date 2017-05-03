@@ -13,7 +13,7 @@
             </keep-alive>
             
         </transition>
-        <my-footer v-if="!head"></my-footer>
+        <my-footer v-if="footer"></my-footer>
         <!-- <div v-if="!head" class="footer">
             <p @click="backroute"><=</p>
         </div> -->
@@ -32,13 +32,14 @@ export default {
     data() {
         return {
             // nav: false,
-            head: true
+            head: true,
+            footer: false
         }
     },
     computed: {
         ...mapState({
             nav: state => state.nav,
-            head: state => state.head
+            // head: state => state.head
         })
     },
     created() {
@@ -55,11 +56,15 @@ export default {
     methods: {
         toggleHead() {
             var path = this.$route.path
-            // console.log(":",path)
-            if(path.search(/\/list/i) === -1) {
-                this.head = false
-            } else {
+            if(/list/i.test(path)) {
                 this.head = true
+                this.footer = false
+            } else if(/content/i.test(path)){
+                this.head = false
+                this.footer = true
+            } else {
+                this.head = false
+                this.footer = false
             }
             // console.log(path)
         },

@@ -54,23 +54,23 @@
 </script>
 
 <style lang="scss">
-	.list {
-		width: 100%;
-		height: 100%;
+	// .list {
+	// 	width: 100%;
+	// 	height: 100%;
 
-		.top-slide {
-			// width: 100%;
-			// height: 440px;
+	// 	.top-slide {
+	// 		// width: 100%;
+	// 		// height: 440px;
 
-			.swiper-in {
-				width: 100%;
-				height: 440px;
-				color: #000;
-				background-color: #ddd;
-				line-height: 440px;
-				font-size: 34px;
-			}
-		}
-	}
+	// 		.swiper-in {
+	// 			width: 100%;
+	// 			height: 440px;
+	// 			color: #000;
+	// 			background-color: #ddd;
+	// 			line-height: 440px;
+	// 			font-size: 34px;
+	// 		}
+	// 	}
+	// }
 
 </style>

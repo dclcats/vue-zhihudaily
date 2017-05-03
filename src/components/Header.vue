@@ -36,7 +36,7 @@
 		width: 100%;
 		text-align: center;
 		font: normal 32px/60px Serif;
-		background-color: rgba(0, 0, 0, 0.4);
+		background: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0));
 		z-index: 11;
 	}
 	.left-menu {

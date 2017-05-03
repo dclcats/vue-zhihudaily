@@ -8,7 +8,8 @@ export default new Vuex.Store( {
 		nav: false,
 		cid: 0,
 		lid: 0,
-		titleName: ''
+		titleName: '',
+		editors: []
 	},
 	mutations: {
 		toggle(state, ctoggle) {
@@ -24,6 +25,12 @@ export default new Vuex.Store( {
 		setTitleName(state, name) {
 			if(!!name) {
 				state.titleName = name
+			}
+		},
+		setEditors(state, data) {
+			if(!!data) {
+				state.editors = data
+				console.log(state.editors instanceof Array)
 			}
 		}
 	}

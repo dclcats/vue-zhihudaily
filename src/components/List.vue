@@ -17,10 +17,19 @@
 						<div class="swiper-pagination" slot="pagination"></div>
 					</swiper>
 				</div>
+				<img class="other-img" v-if="!data.date && !!data.image" :src='data.image' :alt="data.name">
 				<div class="list-message" v-if="!!data.stories">
-					<p v-if="!!data.date && !data.top_stories">{{data.date}}</p>
-					<img v-if="!data.date && !!data.image" :src='data.image'  :alt="data.name">
-					<ul>
+					<p class="date-mes" v-if="!!data.date && !data.top_stories">{{data.date}}</p>
+					<p class="data-editors" v-if="!!data.editors" @click="toEditor" :editors="data.editors">
+						<span>主编</span>
+						<ul>
+							<li v-for="editor in data.editors">
+								<img :src="editor.avatar" alt="主编头像">
+							</li>
+						</ul>
+						<!-- <img src="" alt=""> -->
+					</p>
+					<ul class="list-content">
 						<li v-for="list in data.stories" @click="toContent(list.id)" :data-id="list.id">
 							<p>{{list.title}}</p>
 							<img v-if="!!list.images" :src="list.images" :alt="list.title">
@@ -86,6 +95,12 @@
 			"$route": "getlist"
 		},
 		methods: {
+			toEditor() {
+				this.$store.commit('setEditors', this.datas[0].editors)
+				this.$router.push({
+	        		name: "Editors",
+	        	})
+			},
 			toContent(id) {
 				this.$router.push({
 	        		name: "Content",
@@ -115,14 +130,17 @@
 				this.getdone = false
 				// console.log(jumpId)
 				// console.log(typeof jumpId)
+
 				if(!jumpId || jumpId === '0') {
-					// console.log("newsThemeDetail")
 					jumpId = ""
 					local = "news"
 				}
-				// console.log(local,': ', jumpId)
+
+				if(!/list/i.test(this.$route.path)) {
+					return
+				}
+
 				api.getMessage(local, jumpId).then(function(data) {
-					// console.log(data)
 					var data = data.data;
 					if(!!data.top_stories) {
 						var top_stories = data.top_stories;
@@ -215,7 +233,6 @@
 
 		.loading {
 			position: absolute;
-			// height: calc(100%-400px);
 			width: 100%;
 			font-size: 34px;
 			padding-top: 400px;
@@ -224,13 +241,55 @@
 		.top-slide {
 			// width: 100%;
 			// height: 440px;
+		}
 
+		.other-img {
+			
 		}
 
 		.list-message {
 			font-size: 0;
 
-			&>p {
+			.data-editors {
+				position: relative;
+				line-height: 60px;
+				height: 60px;
+				font-size: 25px;
+				text-align: left;
+
+				&:after {
+					content: ">";
+					position: absolute;
+					right: 34px;
+				}
+
+				span {
+					display: inline-block;
+					padding-left: 34px;
+				}
+
+				ul {
+					display: inline-block;
+					margin: 0 30px;
+					padding: 0;
+
+					li {
+						display: inline-block;
+						height: auto;
+						border: none;
+						padding-right: 12px;
+
+						img {
+							vertical-align: middle;
+							height: 37px;
+							width: auto;
+							border-radius: 37px;
+						}
+					}
+				}
+			}
+
+			.date-mes {
 				background-color: #5886e8;
 				height: 58px;
 				line-height: 58px;
@@ -238,7 +297,7 @@
 				color: #fff;
 				font-weight: bold;
 			}
-			ul {
+			ul.list-content {
 				margin: 0 30px;
 				padding: 0;
 
@@ -259,15 +318,11 @@
 						padding: 0 14px 0;
 						font-weight: bold;
 					}
+
 					img {
-						// flex: 75px;
-						// width: 75px;
 						width: 111px;
 						overflow-y: hidden;
-						// margin: 12.5px 0;
 						align-items: center;
-						// flex: ver
-						// verticalCenter: middle;
 						vertical-align: middle;
 					}
 				}

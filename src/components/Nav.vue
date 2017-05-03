@@ -151,7 +151,8 @@
 			position: absolute;
 			width: 420px;
 			height: 100%;
-			background-color: #ddd;
+			background-color: #252525;
+    		color: #afadad;
 		}
 		
 		.nav-head {
@@ -168,7 +169,7 @@
 				width: 100px;
 				height: 100px;
 				border-radius: 100px;
-				background: #000 url('../assets/logo.png') left top no-repeat;
+				background: #000 url('../assets/avatar.jpg') left top no-repeat;
 				background-size: contain;
 			}
 			.user-name {
@@ -215,8 +216,9 @@
 			}
 
 			.nav-choice {
-				background-color: #868686;
+				background-color: #000;
 				color: #fff;
+				box-shadow: 0px 0px 6px 5px #000 inset;
 			}
 		}
 	}
