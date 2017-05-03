@@ -92,7 +92,12 @@
 			
 		},
 		watch: {
-			"$route": "getlist"
+			// "$route": "getlist"
+			"$route": function(to, from) {
+				if(/list/i.test(to.path)) {
+					this.getlist()
+				}
+			}
 		},
 		methods: {
 			toEditor() {
@@ -258,9 +263,18 @@
 				text-align: left;
 
 				&:after {
-					content: ">";
+					content: "";
 					position: absolute;
-					right: 34px;
+					right: 23px;
+		        	display: inline-block;
+		        	width: 15px;
+		        	height: 15px;
+		        	margin: 20px;
+		        	border: {
+			        	top: 2px solid #6f6f6f;
+			        	right: 2px solid #6f6f6f;
+			        }
+			        transform: rotate(45deg);
 				}
 
 				span {
@@ -306,6 +320,7 @@
 					align-items: center;
 					height: 136px;
 					padding: 3px 0;
+					-webkit-tap-highlight-color:rgba(0,0,0,0);
 					border: {
 						top: 1px solid #ddd;
 					} 

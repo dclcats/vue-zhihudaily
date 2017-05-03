@@ -30,7 +30,6 @@ export default new Vuex.Store( {
 		setEditors(state, data) {
 			if(!!data) {
 				state.editors = data
-				console.log(state.editors instanceof Array)
 			}
 		}
 	}

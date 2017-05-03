@@ -1,6 +1,6 @@
 <template>
 	<div class="editor-detail">
-		<div class="ed-header"><span @click="goback"><</span>主编</div>
+		<div class="ed-header"><span @click="goback"></span>主编</div>
 		<div class="ed-mes" v-for="data in editors" v-if="!!data" @click="godetail(data.url)">
 			<img class="ed-av" :src="data.avatar" alt="头像">
 			<div class="">
@@ -57,10 +57,25 @@
 
 			span {
 				position: absolute;
-				display: inline-block;
-				width: 60px;
-				left: 0px;
-				-webkit-tap-highlight-color:rgba(0,0,0,0);
+				left: 0;
+				display: block;
+		        width: 60px;
+		        height: 60px;
+		        -webkit-tap-highlight-color:rgba(0,0,0,0);
+		        
+		        &:before {
+		        	content: "";
+		        	display: inline-block;
+		        	width: 20px;
+		        	height: 20px;
+		        	margin: 20px;
+		        	border: {
+			        	left: 2px solid #fff;
+			        	bottom: 2px solid #fff;
+			        }
+			        transform: rotate(45deg);
+
+		        }
 			}
 		}
 
@@ -73,9 +88,18 @@
 			font: normal 32px/60px "宋体";
 
 			&:after {
-				content: ">";
+				content: "";
 				position: absolute;
 				right: 23px;
+	        	display: inline-block;
+	        	width: 15px;
+	        	height: 15px;
+	        	margin: 27px 20px;
+	        	border: {
+		        	top: 2px solid #6f6f6f;
+		        	right: 2px solid #6f6f6f;
+		        }
+		        transform: rotate(45deg);
 			}
 			img, div {
 				display: inline-block;
@@ -96,7 +120,7 @@
 			.ed-name {
 				font-size: 20px;
 				color: #000;
-				padding: 12px 0 5px;
+				padding: 7px 0 5px;
 			}
 			.ed-bio {
 				font-size: 16px;
