@@ -107,12 +107,14 @@
 	        	})
 			},
 			toContent(id) {
-				this.$router.push({
-	        		name: "Content",
-	        		params: {
-	        			id: id
-	        		}
-	        	})
+				if(id !== -1) {
+					this.$router.push({
+		        		name: "Content",
+		        		params: {
+		        			id: id
+		        		}
+		        	})
+				}
 			},
 			getlist() {
 				var rid = this.$route.path.split('\/')[2]

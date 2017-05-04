@@ -119,7 +119,7 @@
 		}
 	}
 	.nav {
-		position: fixed;
+		position: absolute;
 		width: 100%;
 		height: 100%;
 		line-height: 34px;
@@ -205,14 +205,23 @@
 			position: absolute;
 			clear: both;
 			width: 100%;
-			height: 100%;
+			height: calc(100% - 204px);
 			padding: 0;
 			line-height: 70px;
 			text-align: left;
 			overflow-y: scroll;
+			-webkit-overflow-scrolling: touch;
 
 			li {
 				padding-left: 24px;
+				a {
+					display: inline-block;
+					width: 100%;
+					height: 100%;
+					text-decoration: none;
+					color: #afadad;
+					-webkit-overflow-scrolling: touch;
+				}
 			}
 
 			.nav-choice {
