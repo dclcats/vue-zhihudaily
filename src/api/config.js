@@ -5,10 +5,11 @@ const config = {
 }
 
 const config1 = {
-	protocol: 'http://',
-	site: 'zhihu-agent.herokuapp.com',
-	method: '/get?api='
+	protocol: 'https://',
+	site: 'test-zhihu.herokuapp.com/api'
 }
 
+
+export const API_ROOT = config1.protocol.concat(config1.site)
 // export const API_ROOT = config.protocol.concat(config.common)
-export const API_ROOT = '/api'
+// export const API_ROOT = '/api'
