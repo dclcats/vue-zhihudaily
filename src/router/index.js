@@ -9,7 +9,7 @@ import Editors from '@/components/Editors'
 Vue.use(Router)
 
 export default new Router({
-	mode: 'history',
+	// mode: 'history',
 	routes: [
 		{
 			path: '/',
