@@ -4,6 +4,7 @@ import Hello from '@/components/Hello'
 import Content from '@/components/Content'
 import List from '@/components/List'
 import Editors from '@/components/Editors'
+import Comments from '@/components/Comments'
 // import ListId from '@/components/List'
 
 Vue.use(Router)
@@ -39,6 +40,11 @@ export default new Router({
 		  path: '/Editors',
 		  name: 'Editors',
 		  component: Editors
+		},
+		{
+		  path: '/Comments/:id',
+		  name: 'Comments',
+		  component: Comments
 		}
 	]
 })

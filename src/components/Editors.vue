@@ -4,8 +4,8 @@
 		<div class="ed-mes" v-for="data in editors" v-if="!!data" @click="godetail(data.url)">
 			<img class="ed-av" :src="data.avatar" alt="头像">
 			<div class="ed-all">
-				<p class="ed-name">{{data.name}}</p>
-				<p class="ed-bio">{{data.bio}}</p>
+				<p class="ed-name" v-if="!!data.name">{{data.name}}</p>
+				<p class="ed-bio" v-if="!!data.bio">{{data.bio}}</p>
 			</div>
 		</div>
 	</div>
@@ -80,48 +80,46 @@
 		}
 
 		.ed-mes {
-			position: relative;
+			display: flex;
+			flex-flow: row wrap;
+			align-items: center;
 			height: 69px;
 			line-height: 69px;
 			border-bottom: 1px solid #ddd;
 			text-align: left;
 			font: normal 32px/60px "宋体";
+			padding-right: 43px;
 
 			&:after {
 				content: "";
-				position: absolute;
-				right: 23px;
-	        	display: inline-block;
-	        	width: 15px;
+				flex: 0 0 15px;
 	        	height: 15px;
-	        	margin: 27px 20px;
 	        	border: {
 		        	top: 2px solid #6f6f6f;
 		        	right: 2px solid #6f6f6f;
 		        }
 		        transform: rotate(45deg);
 			}
-			img, div {
-				display: block;
-				float: left;
-			}
 			img {
 				width: 44px;
+				flex: 0 0 44px;
 				border-radius: 44px;
-				vertical-align: middle;
-				margin: 12.5px 16px;
-				// margin-left: 12px;
-				// margin-right: 12px;
+				margin: 13px;
 			}
 			.ed-all {
+				flex: 1;
 				line-height: initial;
 				font-family: "微软雅黑";
 				padding: 0px 0px 0 12px;
+
+				p {
+					flex: 1;
+					line-height: 27px;
+				}
 			}
 			.ed-name {
 				font-size: 20px;
 				color: #000;
-				padding: 7px 0 5px;
 			}
 			.ed-bio {
 				font-size: 16px;

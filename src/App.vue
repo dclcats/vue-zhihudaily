@@ -1,12 +1,10 @@
 <template>
     <div id="app" class="app">
         <transition name="nav-slide">
-            <!-- <my-nav class="nav-in"></my-nav> -->
             <my-nav class="nav-in"></my-nav>
         </transition>
         
         <my-header v-if="head"></my-header>
-        <!-- <img src="./assets/logo.png"> -->
         <transition>
             <keep-alive>
                 <router-view></router-view>
@@ -14,9 +12,6 @@
             
         </transition>
         <my-footer v-if="footer"></my-footer>
-        <!-- <div v-if="!head" class="footer">
-            <p @click="backroute"><=</p>
-        </div> -->
     </div>
 </template>
 
@@ -31,7 +26,6 @@ export default {
     name: 'app',
     data() {
         return {
-            // nav: false,
             head: true,
             footer: false
         }
@@ -39,7 +33,6 @@ export default {
     computed: {
         ...mapState({
             nav: state => state.nav,
-            // head: state => state.head
         })
     },
     created() {
@@ -62,14 +55,12 @@ export default {
             } else if(/content/i.test(path)){
                 this.head = false
                 this.footer = true
-            } else {
-                this.head = false
-                this.footer = false
+            } else if(/comments/i.test(path)) {
+                this.head = true
+                this.footer = true
             }
-            // console.log(path)
         },
         backroute() {
-            // this.$router.go(-1)
             window.history.back()
         }
     }

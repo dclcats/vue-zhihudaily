@@ -2,7 +2,7 @@
 	<div class="list">
 		<div class="loading" v-if="loading">Loading...</div>
 		<div class="list-con">
-			<div v-if="getdone" v-for="data in datas">
+			<div v-if="getdone" v-for="data in datas" style="font-size: 0px;">
 				<div class="top-slide top" v-if="!!data.top_stories">
 					<swiper :options="swiperOption" class="sdj">
 						<swiper-slide class="top-img" v-for="slide in data.top_stories" :key="slide" :data-id="slide.id">
@@ -74,8 +74,6 @@
 			}
 		},
 		created() {
-			// if(this.$route.path)
-			// if(!this.$route.params.id) {}
 			this.getlist();
 		},
 		mounted() {
@@ -92,7 +90,6 @@
 			
 		},
 		watch: {
-			// "$route": "getlist"
 			"$route": function(to, from) {
 				if(/list/i.test(to.path)) {
 					this.getlist()
@@ -107,6 +104,7 @@
 	        	})
 			},
 			toContent(id) {
+				// this.$store.commit('setLid', this.$route.params.id)
 				if(id !== -1) {
 					this.$router.push({
 		        		name: "Content",
@@ -258,20 +256,21 @@
 			font-size: 0;
 
 			.data-editors {
-				position: relative;
+				// position: relative;
+				display: flex;
+				flex-flow: row nowrap;
+				align-items: center;
 				line-height: 60px;
 				height: 60px;
 				font-size: 25px;
 				text-align: left;
+				padding: 0 43px 0 34px;
 
 				&:after {
 					content: "";
-					position: absolute;
-					right: 23px;
-		        	display: inline-block;
-		        	width: 15px;
+					flex: 0 0 15px;
+		        	// width: 15px;
 		        	height: 15px;
-		        	margin: 20px;
 		        	border: {
 			        	top: 2px solid #6f6f6f;
 			        	right: 2px solid #6f6f6f;
@@ -280,26 +279,24 @@
 				}
 
 				span {
-					display: inline-block;
-					padding-left: 34px;
+					font-size: 24px;
+					color: #6f6f6f;
+					flex: 0 0 60px;
 				}
 
 				ul {
-					display: inline-block;
+					flex: 1;
 					margin: 0 30px;
 					padding: 0;
 
 					li {
 						display: inline-block;
-						height: auto;
-						border: none;
-						padding-right: 12px;
 
 						img {
 							vertical-align: middle;
-							height: 37px;
-							width: auto;
-							border-radius: 37px;
+							height: 34px;
+							margin: 8px 10px 12px;
+							border-radius: 33px;
 						}
 					}
 				}

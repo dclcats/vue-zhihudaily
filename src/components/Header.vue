@@ -1,6 +1,6 @@
 <template>
 	<div class="header">
-		<div @click.stop="toggle" class="left-menu">
+		<div v-if="menu" @click.stop="toggle" class="left-menu">
 			<span></span>
 		</div>
 		<div class="title">{{ title }}</div>
@@ -19,6 +19,7 @@
 		computed: {
 			...mapState({
 				title: state => state.titleName,
+				menu: state => state.menu
 			})
 		},
 		methods: {
