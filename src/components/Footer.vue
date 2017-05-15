@@ -176,26 +176,5 @@
 		}
 
 
-
-	    // p {
-	    //     text-align: left;
-	    //     width: 60px;
-	    //     height: 60px;
-	    //     -webkit-tap-highlight-color:rgba(0,0,0,0);
-	        
-	    //     &:before {
-	    //     	content: "";
-	    //     	display: inline-block;
-	    //     	width: 20px;
-	    //     	height: 20px;
-	    //     	margin: 20px;
-	    //     	border: {
-		   //      	left: 1px solid #000;
-		   //      	bottom: 1px solid #000;
-		   //      }
-		   //      transform: rotate(45deg);
-
-	    //     }
-	    // }
 	}
 </style>
