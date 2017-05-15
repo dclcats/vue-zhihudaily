@@ -95,14 +95,15 @@
 		bottom: 60px;
 		overflow-y: scroll;
 		-webkit-overflow-scrolling: touch;
-		letter-spacing: 1.5px;
+		letter-spacing: 1px;
 	}
 
 	.lc {
-		font-size: 18px;
+		font-size: 22px;
 		text-align: left;
 		.lc-tt {
 			height: 60px;
+			font-size: 26px;
 			font-weight: bold;
 			line-height: 60px;
 			padding-left: 20px;
@@ -146,7 +147,7 @@
 					justify-content: space-between;
 
 					.name {
-						font-size: 20px;
+						font-size: 24px;
 						font-weight: bold;
 					}
 				}
