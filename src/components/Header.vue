@@ -1,5 +1,5 @@
 <template>
-	<div class="header">
+	<div class="header" :class="{com: com}">
 		<div v-if="menu" @click.stop="toggle" class="left-menu">
 			<span></span>
 		</div>
@@ -13,19 +13,41 @@
 	export default {
 		data() {
 			return {
+				menu: true,
+				com: false
 				// title: "今日热闻"
+			}
+		},
+		created() {
+			if(/list/i.test(this.$route.name)) {
+				this.menu = true
+				this.com = false
+			} else if(/Comments/i.test(this.$route.name)){
+				this.menu = false
+				this.com = true
 			}
 		},
 		computed: {
 			...mapState({
 				title: state => state.titleName,
-				menu: state => state.menu
 			})
 		},
+		// watch: {
+		// 	'$route': 'tollgeMenu'
+		// },
 		methods: {
 			toggle() {
 				this.$store.commit('toggle', true)
-			}
+			},
+			// tollgeMenu() {
+			// 	if(/list/i.test(this.$route.name)) {
+			// 		this.menu = true
+			// 	} else 
+			// 	// if(/Comments/i.test(this.$route.name)) 
+			// 	{
+			// 		this.menu = false
+			// 	}
+			// }
 		}
 	}
 </script>
@@ -39,6 +61,9 @@
 		font: normal 32px/60px Serif;
 		background: linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0));
 		z-index: 11;
+	}
+	.com {
+		background: #5fb3e4;
 	}
 	.left-menu {
 		position: absolute;

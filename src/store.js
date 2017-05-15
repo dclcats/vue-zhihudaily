@@ -6,7 +6,7 @@ Vue.use( Vuex )
 export default new Vuex.Store( {
 	state: {
 		nav: false,
-		menu: true,
+		// menu: true,
 		content: false,
 		cid: 0,
 		lid: 0,
@@ -21,13 +21,13 @@ export default new Vuex.Store( {
 				state.nav = false
 			}
 		},
-		toMenu(state, menu) {
-			if(menu) {
-				state.menu = true
-			} else {
-				state.menu = false
-			}
-		},
+		// toMenu(state, menu) {
+		// 	if(menu) {
+		// 		state.menu = true
+		// 	} else {
+		// 		state.menu = false
+		// 	}
+		// },
 		setLid(state, lid) {
 			state.lid = lid
 		},

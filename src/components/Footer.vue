@@ -7,9 +7,9 @@
 	        <span class="share"></span>
 	        <span class="comments num"  @click="backContent"><em>{{comments}}</em></span>
 		</div>
-		<div class="ct fbox" v-if="ct">
+		<div class="cm fbox" v-if="ct">
 			<span class="bk arrow" @click="backroute"></span>
-	        <p></p>
+	        <p class="cm-txt">点评</p>
 		</div>
         
 	</div>
@@ -29,20 +29,12 @@
 			}
 		},
 		created() {
-			var name = this.$route.name;
-			var _this = this;
-			if(/Content/i.test(this.$route.name)) {
-				_this.content = true;
-				api.getMessage('newsInfo', this.$route.params.id).then(function(data) {
-					_this.dz = data.data.popularity;
-					_this.comments = data.data.comments;
-				})
-			}
-			if(/Comments/i.test(this.$route.name)) {
-				_this.comments = true;
-			}
+			this.turnShow();
 		},
 		computed: {
+		},
+		watch: {
+			"$route": "turnShow"
 		},
 		methods: {
 	        backroute() {
@@ -54,11 +46,25 @@
 	        		})
 	        	}
 	        },
+	        turnShow() {
+	        	var name = this.$route.name;
+				var _this = this;
+				if(/Content/i.test(this.$route.name)) {
+					_this.content = true;
+					_this.ct = false;
+					api.getMessage('newsInfo', this.$route.params.id).then(function(data) {
+						_this.dz = data.data.popularity;
+						_this.comments = data.data.comments;
+					})
+				}
+				if(/Comments/i.test(this.$route.name)) {
+					_this.ct = true;
+					_this.content = false;
+				}
+	        },
 	        backContent() {
-	        	console.log('as');
 	        	var _this = this;
 	        	this.$store.commit('setTitleName', this.comments + "条评论");
-	        	this.$store.commit('toMenu', false)
 	        	this.$router.push({
 	        		name: "Comments",
 	        		params: {
@@ -79,7 +85,7 @@
 		height: 60px;
 		width: 100%;
 		bottom: 0;
-		font: normal 32px/60px Serif;
+		font: normal 32px/60px "微软雅黑";
 		box-shadow: 0px -2px 11px #dadada;
 		background-color: rgba(255, 255, 255, 1);
 		
@@ -141,27 +147,55 @@
 			background: url('../assets/comments.png') center center no-repeat;
 		}
 
+		
+		.cm {
+
+			color: #fff;
+			background-color: #3c3c3c;
+
+			.cm-txt {
+				flex: 1;
+				font-size: 26px;
+				letter-spacing: 7px;
+			}
+
+			span.arrow {
+				flex: 0 0 98px;
+				border-right: 1px solid #6b6b6b;
+
+				&:before {
+					border-width: 2px;
+					border-color: #fff;
+				}
+				
+			}
+		}
+
+		.bk, .comments {
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+		}
 
 
-	    p {
-	        text-align: left;
-	        width: 60px;
-	        height: 60px;
-	        -webkit-tap-highlight-color:rgba(0,0,0,0);
+
+	    // p {
+	    //     text-align: left;
+	    //     width: 60px;
+	    //     height: 60px;
+	    //     -webkit-tap-highlight-color:rgba(0,0,0,0);
 	        
-	        &:before {
-	        	content: "";
-	        	display: inline-block;
-	        	width: 20px;
-	        	height: 20px;
-	        	margin: 20px;
-	        	border: {
-		        	left: 1px solid #000;
-		        	bottom: 1px solid #000;
-		        }
-		        transform: rotate(45deg);
+	    //     &:before {
+	    //     	content: "";
+	    //     	display: inline-block;
+	    //     	width: 20px;
+	    //     	height: 20px;
+	    //     	margin: 20px;
+	    //     	border: {
+		   //      	left: 1px solid #000;
+		   //      	bottom: 1px solid #000;
+		   //      }
+		   //      transform: rotate(45deg);
 
-	        }
-	    }
+	    //     }
+	    // }
 	}
 </style>

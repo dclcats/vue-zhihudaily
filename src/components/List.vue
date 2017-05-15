@@ -49,6 +49,7 @@
 
 <script>
 	import api from "../api/index.js"
+	import util from '../commons/util.js'
 	import { mapState } from "vuex"
 
 	export default {
@@ -70,7 +71,8 @@
 					mousewheelControl : true,
 					observeParents:true,
 					loop: true,
-				}
+				},
+				slideNum: ":dd"
 			}
 		},
 		created() {
@@ -85,9 +87,22 @@
 				document.querySelector('.list').addEventListener('scroll',this.lazyLoad);
 			} else {
 				this.homepage = false
-
 			}
-			
+
+			var _this = this;
+
+			document.querySelector(".list").addEventListener("touchstart", util.tstart.bind(util))
+			document.querySelector(".list").addEventListener("touchmove", util.tmove.bind(util))
+			document.querySelector(".list").addEventListener("touchend", (function (e) {
+				if(this.slideNum === 1) {
+					_this.$store.commit('toggle', true);
+				}
+				this.slideNum = 0;
+				this.num = 0;
+			}).bind(util));
+			// document.querySelector(".list").addEventListener("click", () => {
+			// 	console.log(_this.slideNum)
+			// })
 		},
 		watch: {
 			"$route": function(to, from) {
@@ -147,6 +162,7 @@
 
 				api.getMessage(local, jumpId).then(function(data) {
 					var data = data.data;
+					that.$store.commit('setTitleName', data.name )
 					if(!!data.top_stories) {
 						var top_stories = data.top_stories;
 						var tlength = top_stories.length;

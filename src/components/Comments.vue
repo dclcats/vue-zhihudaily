@@ -1,15 +1,32 @@
 <template>
 	<div class="comments">
-		<div class="lc">
-			<p class="lc-tt">{{lc.length}}条长评论</p>
+		<div class="loading" v-if="loading">Loading...</div>
+		<div class="lc" v-if="getdone">
+			<p class="lc-tt">{{lc.length}} 条长评论</p>
 			<div class="lc-box" v-for="data in lc">
-				<img :src="data.avatar" alt="头像">
-				<div>
+				<img class="lc-avatar" :src="data.avatar" alt="头像">
+				<div class="lc-com">
 					<div>
 						<span class="name">{{data.author}}</span>
 						<span class="like"><em>{{data.likes}}</em></span>
 					</div>
 					<p class="lc-ct">{{data.content}}</p>
+					<p class="lc-reply" v-if="!!data.reply_to"><span>//{{data.reply_to.author}}：</span>{{data.reply_to.content}}</p>
+					<p class="time">{{st(data.time)}}</p>
+				</div>
+			</div>
+		<!-- </div>
+		<div class="lc"> -->
+			<p class="lc-tt">{{sc.length}} 条短评论</p>
+			<div class="lc-box" v-for="data in sc">
+				<img class="lc-avatar" :src="data.avatar" alt="头像">
+				<div class="lc-com">
+					<div>
+						<span class="name">{{data.author}}</span>
+						<span class="like"><em>{{data.likes}}</em></span>
+					</div>
+					<p class="lc-ct">{{data.content}}</p>
+					<p class="lc-reply" v-if="!!data.reply_to"><span>//{{data.reply_to.author}}：</span>{{data.reply_to.content}}</p>
 					<p class="time">{{st(data.time)}}</p>
 				</div>
 			</div>
@@ -19,25 +36,43 @@
 
 <script>
 	import api from "../api/index.js"
+	import { mapState } from "vuex"
 
 	export default {
 		data() {
 			return {
+				loading: true,
+				getdone: false,
 				lc: [],
 				sc: [],
 				time: ''
 			}
 		},
 		created() {
-			var _this = this;
-			api.getMessage('newsStory', this.$route.params.id + "/long-comments").then((data) => {
-				_this.lc = data.data.comments
-			});
-			api.getMessage('newsStory', this.$route.params.id + "/short-comments").then((data) => {
-				_this.sc = data.data.comments
-			});
+			this.getCon();
+		},
+		watch: {
+			"$route": 'getCon'
 		},
 		methods: {
+			getCon() {
+				if(!/comments/i.test(this.$route.name)) {
+					this.lc = []
+					this.sc = []
+					return
+				}
+				this.loading = true;
+				this.getdone = false;
+				var _this = this;
+				api.getMessage('newsStory', this.$route.params.id + "/long-comments").then((data) => {
+					_this.lc = data.data.comments;
+				});
+				api.getMessage('newsStory', this.$route.params.id + "/short-comments").then((data) => {
+					_this.sc = data.data.comments
+					_this.loading = false;
+					_this.getdone = true;
+				});
+			},
 			st(time) {
 				var a = new Date();
 				a.setTime(time*1000);
@@ -51,19 +86,84 @@
 <style lang="scss" scoped>
 	.comments {
 		position: absolute;
-		margin-top: 60px;
-		top: 0px;
+		// margin-top: 60px;
+		// width: 100%;
+		// height: 100%;
+		top: 60px;
+		left: 0px;
+		right: 0px;
 		bottom: 60px;
 		overflow-y: scroll;
+		-webkit-overflow-scrolling: touch;
+		letter-spacing: 1.5px;
 	}
 
 	.lc {
 		font-size: 18px;
 		text-align: left;
 		.lc-tt {
-			height: 50px;
+			height: 60px;
 			font-weight: bold;
-			line-height: 50px; 
+			line-height: 60px;
+			padding-left: 20px;
+			border-bottom: 1px solid #ddd;
+		}
+
+		.lc-box {
+			display: flex;
+			flex-items: row wrap;
+			align-items: flex-start;
+			border-bottom: 1px solid #ddd;
+			// margin: 0 30px 0 10px;
+
+			.lc-avatar {
+				flex: 0 0 50px;
+				width: 50px;
+				margin: 20px;
+				border-radius: 50px;
+			}
+
+			.like {
+				position: relative;
+				width: 90px;
+				height: 100%;
+    			background: url('../assets/like00.png') center center no-repeat;
+
+    			em {
+    				position: absolute;
+    				top: 0;
+    				left: 61px;
+    			}
+			}
+
+			.lc-com {
+				flex: 1;
+				margin-right: 20px;
+				&>div {
+					height: 45px;
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+
+					.name {
+						font-size: 20px;
+						font-weight: bold;
+					}
+				}
+
+				.lc-reply {
+					margin-top: 12px;
+
+					span {
+						font-weight: bold;
+					}
+				}
+
+				.time {
+					height: 50px;
+					line-height: 50px;
+				}
+			}
 		}
 	}
 </style>
