@@ -166,19 +166,21 @@
 					if(!!data.top_stories) {
 						var top_stories = data.top_stories;
 						var tlength = top_stories.length;
-						for (var i = tlength - 1; i >= 0; i--) {
+						//解决图片文件跨域问题
+						// for (var i = tlength - 1; i >= 0; i--) {
 							// top_stories[i].image = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=' + top_stories[i].image
-						}
+						// }
 						data.top_stories = top_stories
 					}
 					if(!!data.stories) {
 						var stories = data.stories;
 						var tlength = stories.length;
-						for (var i = tlength - 1; i >= 0; i--) {
-							if(!!stories[i].images) {
+						//解决图片文件跨域问题
+						// for (var i = tlength - 1; i >= 0; i--) {
+						// 	if(!!stories[i].images) {
 								// stories[i].images = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=' + stories[i].images
-							}
-						}
+						// 	}
+						// }
 						data.stories = stories
 					}
 
@@ -196,17 +198,27 @@
 				}).catch(err => {
 					console.log(err);
 				});
-				setInterval(() => {
+				// setInterval(() => {
 					// console.log('simulate async data')
 					// let swiperSlides = this.swiperSlides
 					// if (swiperSlides.length < 10) swiperSlides.push(swiperSlides.length + 1)
-				}, 3000)
+				// }, 3000)
 			},
 			lazyLoad(e) {
 				var that = this,
 					clientH = document.documentElement.clientHeight || document.body.clientHeight,
 					scrollH = document.querySelector('.list').scrollTop,
-					eleTop = document.querySelector('.more-load').offsetTop;
+					eleTop = document.querySelector('.more-load').offsetTop,
+					arr = [];
+
+				//标题Title信息更新
+				document.querySelectorAll('.date-mes').forEach(function(v,i){
+					if(v.getBoundingClientRect().top < 10) {
+						arr.push(v);
+					}
+				});
+
+				!!arr[0] ? this.$store.commit('setTitleName', arr[arr.length - 1].innerHTML) : this.$store.commit('setTitleName', '今日热闻')
 
 				if(eleTop - 100 <= (clientH + scrollH) && that.refresh) {
 					that.refresh = false;

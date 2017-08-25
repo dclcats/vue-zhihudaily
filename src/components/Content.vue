@@ -1,7 +1,7 @@
 <template>
 	<div class="ctn">
 		<div class="loading" v-if="loading">Loading...</div>
-		<div v-if="getdone">
+		<div id="art-box" v-if="getdone">
 			<div v-if="!!data.image" class="top">
 				<div class="top-img">
 					<img :src="data.image" :alt="data.image_source">

@@ -2,7 +2,7 @@
 	<div class="footer">
 		<div class="content fbox" v-if="content">
 			<span class="bk arrow" @click="backroute"></span>
-	        <span class="gt arrow"></span>
+	        <span class="gt arrow" @click="backTop"></span>
 	        <span class="dz num"><em>{{dz}}</em></span>
 	        <span class="share"></span>
 	        <span class="comments num"  @click="backContent"><em>{{comments}}</em></span>
@@ -17,6 +17,7 @@
 
 <script>
 	import api from "../api/index.js"
+	import TWEEN from "@tweenjs/tween.js"
 	import { mapState } from "vuex"
 
 	export default {
@@ -46,6 +47,33 @@
 	        		})
 	        	}
 	        },
+			backTop() {
+				var ani = false,
+					tar = document.querySelector('.ctn'),
+					top = tar.scrollTop;
+					
+				if(tar && top !== 0) {
+					var data = {x: top};
+					var tween = new TWEEN.Tween(data)
+									.to({x: 0}, 700)
+									.onUpdate(function() {
+										tar.scrollTop = data.x;
+									})
+									.onComplete(function() {
+										ani = true;
+									})
+									.start();
+					(function animate(time) {
+						if(ani) {
+							TWEEN.removeAll();
+							ani = false;
+							return;
+						}
+						requestAnimationFrame(animate);
+						TWEEN.update(time);
+					})();
+				}
+			},
 	        turnShow() {
 	        	var name = this.$route.name;
 				var _this = this;
