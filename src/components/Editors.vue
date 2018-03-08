@@ -1,7 +1,7 @@
 <template>
 	<div class="editor-detail">
 		<div class="ed-header"><span @click="goback"></span>主编</div>
-		<div class="ed-mes" v-for="data in editors" v-if="!!data" @click="godetail(data.url)">
+		<div class="ed-mes" v-for="data in editors" v-if="!!data" @click="godetail(data.url)" :key='data.id'>
 			<img class="ed-av" :src="data.avatar" alt="头像">
 			<div class="ed-all">
 				<p class="ed-name" v-if="!!data.name">{{data.name}}</p>
@@ -17,7 +17,7 @@
 	export default {
 		data() {
 			return {
-				// editors: []
+				
 			}
 		},
 		computed: {

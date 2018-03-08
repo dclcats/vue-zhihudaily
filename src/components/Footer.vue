@@ -107,8 +107,6 @@
 <style lang="scss" scoped>
 
 	.footer {
-		// display: flex;
-		// align-items: center;
 		position: fixed;
 		height: 60px;
 		width: 100%;

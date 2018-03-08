@@ -3,25 +3,24 @@
 		<div class="nav-content">
 			<div class="nav-head">
 				<div class="avatar"></div>
-				<div class="user-name">{{ username }}</div>
+				<div class="user-name"><a href="http://www.chriz.site">{{ username }}</a></div>
 			</div>
 			<table  class="nav-settings">
 				<tr>
-					<td>收藏</td>
+					<td><a href="http://www.chriz.site">收藏</a></td>
 					<td>|</td>
-					<td>消息</td>
+					<td><a href="http://www.chriz.site">消息</a></td>
 					<td>|</td>
-					<td>设置</td>
+					<td><a href="http://www.chriz.site">设置</a></td>
 				</tr>
 			</table>
 			<ul class="nav-list">
 				<li title="首页" data-id="0" @click="tolist(0, '首页')">首页</li>
-				<li v-for="sub in subList" :title="sub.description" :data-id="sub.id" @click="tolist(sub.id, sub.name)"> {{ sub.name }} </li>
-				<li v-for="list in othersList" :title="list.description" :data-id="list.id" @click="tolist(list.id, list.name)"> {{ list.name }} </li>
+				<li v-for="sub in subList" :title="sub.description" :data-id="sub.id" @click="tolist(sub.id, sub.name)" :key='sub.id'> {{ sub.name }} </li>
+				<li v-for="list in othersList" :title="list.description" :data-id="list.id" @click="tolist(list.id, list.name)" :key='list.id'> {{ list.name }} </li>
 				<li data-id="-1"><a href="https://github.com/dclcats/vue-zhihudaily">GitHub</a></li>
 			</ul>
 		</div>
-		<!-- <div class="nav-mark" :class="{opmark: nav}"></div> -->
 	</div>
 </template>
 
@@ -43,12 +42,9 @@
 	            nav: state => state.nav,
 	        })
 		},
-		// computed() {
 		mounted() {
-		// created() {
 			var that = this;
 			api.getMessage('newsThemes').then(function(data) {
-				// console.log(data)
 				that.subList = data.data.subscribed;
 				that.othersList = data.data.others;
 				var lid = that.$route.params.id;
@@ -57,7 +53,6 @@
 				}
 				setTimeout(function () {
 					if(!!document.querySelector('.nav-list li[data-id="' + lid + '"]')) {
-						// console.log(lid)
 						document.querySelector('.nav-list li[data-id="' + lid + '"]').classList.add('nav-choice')
 					}
 				}, 0)
@@ -103,19 +98,16 @@
 	}
 	div.slide {
 		left: 0;
-		// animation: slided .5s ease-in-out forwards;
 	}
 	@keyframes slided {
 		0% {
 			left: -640px;
-			// display: none;
 		}
 		2% {
 			left: -420px;
 		}
 		100% {
 			left: 0px;
-			// display: block;
 		}
 	}
 	.nav {
@@ -129,7 +121,6 @@
 		left: -640px;
 		transition: left .6s;
 		z-index: 99;
-		// background-color: rgba(0, 0, 0, .5);
 
 		.nav-mark {
 			position: absolute;
@@ -153,6 +144,15 @@
 			height: 100%;
 			background-color: #252525;
     		color: #afadad;
+
+			a {
+				display: inline-block;
+				width: 100%;
+				height: 100%;
+				text-decoration: none;
+				color: #afadad;
+				-webkit-overflow-scrolling: touch;
+			}
 		}
 		
 		.nav-head {
@@ -175,7 +175,6 @@
 			.user-name {
 				width: 280px;
 				font-size: 28px;
-				// padding-left: 24px;
 				text-align: center;
 				font-weight: bold;
 			}
@@ -184,20 +183,11 @@
 		.nav-settings {
 			height: 34px;
 			width: 80%;
-			// line-height: 34px;
 			text-align: center;
 			margin: 0 auto;
 			td {
 				letter-spacing: 3px;
 			}
-			
-
-			// div {
-			// 	float: left;
-			// }
-			// .cut {
-			// 	margin: 0 10px;
-			// }
 			
 		}
 
@@ -214,14 +204,6 @@
 
 			li {
 				padding-left: 24px;
-				a {
-					display: inline-block;
-					width: 100%;
-					height: 100%;
-					text-decoration: none;
-					color: #afadad;
-					-webkit-overflow-scrolling: touch;
-				}
 			}
 
 			.nav-choice {

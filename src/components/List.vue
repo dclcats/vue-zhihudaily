@@ -2,10 +2,10 @@
 	<div class="list">
 		<div class="loading" v-if="loading">Loading...</div>
 		<div class="list-con">
-			<div v-if="getdone" v-for="data in datas" style="font-size: 0px;">
+			<div v-if="getdone" v-for="data in datas" style="font-size: 0px;" :key='data.id'>
 				<div class="top-slide top" v-if="!!data.top_stories">
 					<swiper :options="swiperOption" class="sdj">
-						<swiper-slide class="top-img" v-for="slide in data.top_stories" :key="slide" :data-id="slide.id">
+						<swiper-slide class="top-img" v-for="slide in data.top_stories" :data-id="slide.id" :key='slide.id'>
 							<div @click="toContent(slide.id)">
 								<img :src="slide.image" :alt="slide.title">
 								<div class="slide-content">
@@ -23,14 +23,13 @@
 					<p class="data-editors" v-if="!!data.editors" @click="toEditor" :editors="data.editors">
 						<span>主编</span>
 						<ul>
-							<li v-for="editor in data.editors">
+							<li v-for="editor in data.editors" :key='editor.id'>
 								<img :src="editor.avatar" alt="主编头像">
 							</li>
 						</ul>
-						<!-- <img src="" alt=""> -->
 					</p>
 					<ul class="list-content">
-						<li v-for="list in data.stories" @click="toContent(list.id)" :data-id="list.id">
+						<li v-for="list in data.stories" @click="toContent(list.id)" :data-id="list.id" :key='list.id'>
 							<p>{{list.title}}</p>
 							<img v-if="!!list.images" :src="list.images" :alt="list.title">
 						</li>
@@ -100,9 +99,6 @@
 				this.slideNum = 0;
 				this.num = 0;
 			}).bind(util));
-			// document.querySelector(".list").addEventListener("click", () => {
-			// 	console.log(_this.slideNum)
-			// })
 		},
 		watch: {
 			"$route": function(to, from) {
@@ -119,7 +115,6 @@
 	        	})
 			},
 			toContent(id) {
-				// this.$store.commit('setLid', this.$route.params.id)
 				if(id !== -1) {
 					this.$router.push({
 		        		name: "Content",
@@ -148,8 +143,6 @@
 				var local = "newsThemeDetail"
 				this.loading = true
 				this.getdone = false
-				// console.log(jumpId)
-				// console.log(typeof jumpId)
 
 				if(!jumpId || jumpId === '0') {
 					jumpId = ""
@@ -166,21 +159,11 @@
 					if(!!data.top_stories) {
 						var top_stories = data.top_stories;
 						var tlength = top_stories.length;
-						//解决图片文件跨域问题
-						// for (var i = tlength - 1; i >= 0; i--) {
-							// top_stories[i].image = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=' + top_stories[i].image
-						// }
 						data.top_stories = top_stories
 					}
 					if(!!data.stories) {
 						var stories = data.stories;
 						var tlength = stories.length;
-						//解决图片文件跨域问题
-						// for (var i = tlength - 1; i >= 0; i--) {
-						// 	if(!!stories[i].images) {
-								// stories[i].images = 'http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=' + stories[i].images
-						// 	}
-						// }
 						data.stories = stories
 					}
 
@@ -198,11 +181,6 @@
 				}).catch(err => {
 					console.log(err);
 				});
-				// setInterval(() => {
-					// console.log('simulate async data')
-					// let swiperSlides = this.swiperSlides
-					// if (swiperSlides.length < 10) swiperSlides.push(swiperSlides.length + 1)
-				// }, 3000)
 			},
 			lazyLoad(e) {
 				var that = this,
@@ -223,10 +201,8 @@
 				if(eleTop - 100 <= (clientH + scrollH) && that.refresh) {
 					that.refresh = false;
 					var gd = that.getdate();
-					// document.querySelector('.more-load').textContent = 'loading...'
 					api.getMessage('newsDate', gd).then((data) => {
 						that.datas.push(data.data)
-						// document.querySelector('.more-load').textContent = 'load'
 						that.date += 1
 						that.refresh = true
 					}).catch(err => {
@@ -271,11 +247,6 @@
 			padding-top: 400px;
 		}
 
-		.top-slide {
-			// width: 100%;
-			// height: 440px;
-		}
-
 		.other-img {
 			
 		}
@@ -284,7 +255,6 @@
 			font-size: 0;
 
 			.data-editors {
-				// position: relative;
 				display: flex;
 				flex-flow: row nowrap;
 				align-items: center;
@@ -297,7 +267,6 @@
 				&:after {
 					content: "";
 					flex: 0 0 15px;
-		        	// width: 15px;
 		        	height: 15px;
 		        	border: {
 			        	top: 2px solid #6f6f6f;
@@ -376,7 +345,6 @@
 		display: none;
 		line-height: 70px;
 		font-size: 23px;
-		// padding: 0 14px 0;
 		text-align: center;
 		font-weight: bold;
 		height: 70px;
@@ -392,6 +360,7 @@
 		position: relative;
 		height: 350px;
 		.top-img {
+			position: relative;
 			width: 100%;
 			height: 350px;
 			color: #000;
@@ -404,6 +373,11 @@
 				margin-top: -145px;
 			}
 		}
+		.sdj {
+			position: relative;
+			width: 100%;
+			height: 100%;
+		}
 		.slide-content {
 			position: absolute;
 			width: 100%;
@@ -414,7 +388,6 @@
 			p {
 				position: absolute;
 				font-size: 29px;
-				// vertical-align: bottom;
 				color: #fff;
 				bottom: 23px;
 				text-align: left;

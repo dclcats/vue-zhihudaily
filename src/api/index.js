@@ -21,37 +21,28 @@ export default {
 	},
 
 	//获取信息函数的分类，每个函数作用是独立的， 与apiList中属性一一对应
-	getStart(size) {		//获取开机动画图函数
-		// return axios.get( startImage + size )
-		return axios.get( API_ROOT.concat(apiList.startImage, size) )
-	},
-	getNews() {		//获取最新消息函数
-		// return axios.get( news )
-		return axios.get( API_ROOT.concat(apiList.news) )
-	},
-	getNewsDate(date) {		//按时间获取过往消息列表函数
-		// return axios.get( newsDate + date )
-		return axios.get( API_ROOT.concat(apiList.newsDate, date) )
-	},
-	getNewsDetail(id) {
-		// return axios.get( newsDetail + id )
-		return axios.get( API_ROOT.concat(apiList.newsDetail, id) )
-	},
-	getNewsInfo(id) {
-		// return axios.get( newsInfo + id )
-		return axios.get( API_ROOT.concat(apiList.newsInfo, id) )
-	},
-	getNewsStory(idMessage) {
-		// return axios.get( newsStory + idMessage )
-		return axios.get( API_ROOT.concat(apiList.newsStory,idMessage) )
-	},
-	getThemes() {
-		// console.log(API_ROOT.concat(apiList.newsThemes))
-		// return axios.get( newsThemes )
-		return axios.get( API_ROOT.concat(apiList.newsThemes) )
-	},
-	getThemeDetail(themeId) {
-		// return axios.get( newsThemeDetail + themeId )
-		return axios.get( API_ROOT.concat(apiList.newsThemeDetail, themeId) )
-	},
+	// getStart(size) {		//获取开机动画图函数
+	// 	return axios.get( API_ROOT.concat(apiList.startImage, size) )
+	// },
+	// getNews() {		//获取最新消息函数
+	// 	return axios.get( API_ROOT.concat(apiList.news) )
+	// },
+	// getNewsDate(date) {		//按时间获取过往消息列表函数
+	// 	return axios.get( API_ROOT.concat(apiList.newsDate, date) )
+	// },
+	// getNewsDetail(id) {
+	// 	return axios.get( API_ROOT.concat(apiList.newsDetail, id) )
+	// },
+	// getNewsInfo(id) {
+	// 	return axios.get( API_ROOT.concat(apiList.newsInfo, id) )
+	// },
+	// getNewsStory(idMessage) {
+	// 	return axios.get( API_ROOT.concat(apiList.newsStory,idMessage) )
+	// },
+	// getThemes() {
+	// 	return axios.get( API_ROOT.concat(apiList.newsThemes) )
+	// },
+	// getThemeDetail(themeId) {
+	// 	return axios.get( API_ROOT.concat(apiList.newsThemeDetail, themeId) )
+	// },
 }

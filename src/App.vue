@@ -86,7 +86,6 @@ export default {
     height: 100%;
     width: 100%;
     overflow: hidden;
-    // -webkit-overflow-scrolling: touch;
 }
 
 .nav-slide-enter-active {
@@ -100,28 +99,24 @@ export default {
 @keyframes slide-enter {
     0% {
         left: -420px;
-        // width: 0px;
     }
     100% {
         left: 0px;
-        // width: 420px;
     }
 }
 
 @keyframes slide-leave {
     0% {
         left: 0px;
-        // width: 420px;
     }
     100% {
         left: -420px;
-        // width: 0px;
     }
 }
 
 @include min-screen(640px) {
     html, body {
-        // position: relative;
+
     }
     #app{
         width: 640px;
@@ -129,16 +124,4 @@ export default {
         transform: translate(-50%,0);
     }
 }
-
-/* @media screen and (min-width: 640px){
-    html, body {
-        position: relative;
-    }
-    #app{
-        position: absolute
-        width: 640px;
-        left: 50%;
-        transform: translate(-50%,0);
-    }
-} */
 </style>

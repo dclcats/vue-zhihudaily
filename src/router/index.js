@@ -5,12 +5,10 @@ import Content from '@/components/Content'
 import List from '@/components/List'
 import Editors from '@/components/Editors'
 import Comments from '@/components/Comments'
-// import ListId from '@/components/List'
 
 Vue.use(Router)
 
 export default new Router({
-	// mode: 'history',
 	routes: [
 		{
 			path: '/',

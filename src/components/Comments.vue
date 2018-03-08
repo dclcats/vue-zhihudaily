@@ -3,7 +3,7 @@
 		<div class="loading" v-if="loading">Loading...</div>
 		<div class="lc" v-if="getdone">
 			<p class="lc-tt">{{lc.length}} 条长评论</p>
-			<div class="lc-box" v-for="data in lc">
+			<div class="lc-box" v-for="data in lc" :key='data.id'>
 				<img class="lc-avatar" :src="data.avatar" alt="头像">
 				<div class="lc-com">
 					<div>
@@ -15,10 +15,8 @@
 					<p class="time">{{st(data.time)}}</p>
 				</div>
 			</div>
-		<!-- </div>
-		<div class="lc"> -->
 			<p class="lc-tt">{{sc.length}} 条短评论</p>
-			<div class="lc-box" v-for="data in sc">
+			<div class="lc-box" v-for="data in sc" :key='data.id'>
 				<img class="lc-avatar" :src="data.avatar" alt="头像">
 				<div class="lc-com">
 					<div>
@@ -86,9 +84,6 @@
 <style lang="scss" scoped>
 	.comments {
 		position: absolute;
-		// margin-top: 60px;
-		// width: 100%;
-		// height: 100%;
 		top: 60px;
 		left: 0px;
 		right: 0px;
@@ -115,7 +110,6 @@
 			flex-items: row wrap;
 			align-items: flex-start;
 			border-bottom: 1px solid #ddd;
-			// margin: 0 30px 0 10px;
 
 			.lc-avatar {
 				flex: 0 0 50px;

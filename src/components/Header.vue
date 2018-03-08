@@ -15,7 +15,6 @@
 			return {
 				menu: true,
 				com: false
-				// title: "今日热闻"
 			}
 		},
 		created() {
@@ -32,22 +31,10 @@
 				title: state => state.titleName,
 			})
 		},
-		// watch: {
-		// 	'$route': 'tollgeMenu'
-		// },
 		methods: {
 			toggle() {
 				this.$store.commit('toggle', true)
 			},
-			// tollgeMenu() {
-			// 	if(/list/i.test(this.$route.name)) {
-			// 		this.menu = true
-			// 	} else 
-			// 	// if(/Comments/i.test(this.$route.name)) 
-			// 	{
-			// 		this.menu = false
-			// 	}
-			// }
 		}
 	}
 </script>
