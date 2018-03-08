@@ -28,7 +28,7 @@ npm run dev
 跨域通过node服务器代理的方式实现。
 
 
-  [1]: ./public/image/code_little.png "QR code"
+  [1]: ./public/images/code_little.png "QR code"
   [2]: http://www.chriz.site/zhihudaily/
   [3]: https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90
   [4]: https://github.com/dclcats/vue-zhihudaily/blob/master/zhihudaily_API.md
